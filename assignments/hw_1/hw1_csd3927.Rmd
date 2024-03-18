@@ -1,5 +1,5 @@
 ---
-title: "ΒΙΟ-476"
+title: "BIO-476"
 output: 
   html_notebook:
     css: style.css     
@@ -7,7 +7,7 @@ output:
 
 ## Homework 1
 
-### Giorgos Geramoutsos
+### Γιώργος Γεραμούτσος
 
 #### csd3927
 
@@ -17,118 +17,128 @@ output:
 
 ------------------------------------------------------------------------
 
-**O κώδικας των ασκήσεων καθώς και άλλα αρχεία βρίσκoνται επίσης και στο github μου [*gioge31/bio-476*](https://github.com/geoge31/bio-476/tree/main "bio-476_repository")**
+#### **O κώδικας των ασκήσεων καθώς και άλλα αρχεία βρίσκoνται επίσης και στο github μου [*gioge31/bio-476*](https://github.com/geoge31/bio-476/tree/main "bio-476_repository")**
 
 ------------------------------------------------------------------------
 
-# `1`
-
-\- Φορτώνουμε τα data set και αφαιρούμε τις γραμμές με τους χαρακτήρες !,\^,# μέσω της grepl
-
--   Data set 1 - GDS6063
-
-    -   η επίδραση της γρίπης Α στα δενδριτικά κύτταρα
-
 ```{r}
-
-dataSet1 = readLines("GDS6063.soft")
-print(head(dataSet1,n=10))
-
-dataSet1_cleaned = dataSet1[!grepl("[!^#]",dataSet1)]
-print(head(dataSet1_cleaned,n=10))
-writeLines(dataSet1_cleaned,'GDS6063_cleaned.soft')
-
-```
-
--   Data set 2 - GDS6100
-
-    -   επίδραση της υπερέκφρασης MicroRNA-135b στην κυτταρική σειρά καρκίνου του προστάτη
-
-```{r}
-
-dataSet2 = readLines("GDS6100.soft")
-print(head(dataSet2,n=10))
-
-dataSet2_cleaned = dataSet2[!grepl("[!^#]",dataSet2)]
-print(head(dataSet2_cleaned,n=10))
-writeLines(dataSet2_cleaned,'GDS6100_cleaned.soft')
-
-```
-
-# `2`
-
-\- Για κάθε data set μέσω της read.table αποθηκεύουμε τα δεδομένα σε ένα data frame και έπειτα επιλέγουμε τις στήλες που μας ενδιαφέρουν
-
-```{r}
-
-myT1 = read.table("GDS6063_cleaned.soft",sep = "\t",header = T,na.strings = "null")
-print(head(myT1,n=20))
-
-myT1_trim = myT1[,3:ncol(myT1)]
-myT1_trim = na.omit(myT1_trim)
-myT1_trim
-
-boxplot(myT1_trim)
-
-```
-
-```{r}
-
-myT2 = read.table("GDS6100_cleaned.soft",sep = "\t",header = T,na.strings = "null")
-print(head(myT2,n=20))
-
-myT2_trim = myT2[,3:ncol(myT2)]
-myT2_trim = na.omit(myT2_trim)
-myT2_trim
-
-
-boxplot(myT2_trim)
-
-```
-
-# `3`
-
-\- Για να κανονικοποιήσουμε κάθε άτομο πρέπει να αναστρέψουμε τους πίνακες ώστε να μπορούμε να δουλεύουμε στις στήλες
-
-\- Βρίσκουμε τους μέσους όρους και τυπικές αποκλείσεις και έπειτα από για κάθε στοιχείο της στήλης αφαιρούμε την μέση τιμή και διαρούμε με την τυπική απόκλιση.
-
-```{r}
-
 install.packages("matrixStats")
 library(matrixStats)
+
+```
+
+------------------------------------------------------------------------
+
+# Data set 1
+
+-   GDS6063 - η επίδραση της γρίπης Α στα δενδριτικά κύτταρα
+
+```{r}
+ds_a = readLines("GDS6063.soft")
+print(head(ds_a,n=5))
+
+```
+
+```{r}
+# task 1 
+
+ds_a_cleaned = ds_a[!grepl("[!^#]",ds_a)]
+print(head(ds_a_cleaned,n=5))
+writeLines(ds_a_cleaned,'GDS6063_cleaned.soft')
+
+```
+
+```{r}
+# task 2 
+
+ta = read.table("GDS6063_cleaned.soft",sep = "\t",header = T,na.strings = "null")
+
+print(head(ta,n=5))
+
+ta = ta[,3:ncol(ta)]
+ta = na.omit(myT1_trim)
+
+
+boxplot(ta)
+```
+
+```{r}
+# task 3 
+
+library(matrixStats)
+
+mo_a = colMeans(as.matrix(ta))
+sds_a = colSds(as.matrix(ta))
+
+t_a = t((t(ta)- mo_a)/sds_a)
+
+
+```
+
+```{r}
+# task 4 
+
+boxplot(t_a)
+```
+
+```{r}
+#  task 5 
+
+heatmap(as.matrix(t_a))
+
+```
+
+# Data set 2
+
+-   GDS6100 - η επίδραση της υπερέκφρασης MicroRNA-135b στην κυτταρική σειρά καρκίνου του προστάτη
+
+```{r}
+ds_b = readLines("GDS6100.soft")
+print(head(ds_b,n=5))
+
+```
+
+```{r}
+# task 1 
+
+ds_b_cleaned = ds_b[!grepl("[!^#]",ds_b)]
+print(head(ds_b_cleaned,n=5))
+writeLines(ds_b_cleaned,'GDS6100_cleaned.soft')
+
+```
+
+```{r}
+# task 2 
+
+tb = read.table("GDS6100_cleaned.soft",sep = "\t",header = T,na.strings = "null")
+
+print(head(tb,n=5))
+
+tb = tb[,3:ncol(tb)]
+tb = na.omit(tb)
+
+
+boxplot(tb)
+```
+
+```{r}
+# task 3 
+
+mo_b = colMeans(as.matrix(tb))
+sds_b = colSds(as.matrix(tb))
+
+t_b = t((t(tb)- mo_b)/sds_b)
 ```
 
 ```{r}
 
-transposed_a = t(myT1_trim)
+# task 4 
 
-mo_a = colMeans(transposed_a)
-sds_a = colSds(transposed_a)
-
-normz_a = (transposed_a - mo_a)/sds_a
-
-print(normz_a[,1:10])
-
+boxplot(t_b)
 ```
 
 ```{r}
+#  task 5 
 
-transposed_b = t(myT1_trim)
-
-mo_b = colMeans(transposed_b)
-sds_b = colSds(transposed_b)
-
-
-normz_b = (transposed_b - mo_b)/sds_b
-
-print(normz_b[,1:10])
-
-```
-
-# `4`
-
-```{r}
-
-boxplot(normz_a)
-
+heatmap(as.matrix(t_b))
 ```
