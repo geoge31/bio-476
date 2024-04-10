@@ -1,0 +1,61 @@
+---
+title: "10-4"
+output:
+  pdf_document: default
+  html_document: default
+date: "2024-04-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+### Ena vector me 1500 times opou oi prwtes 1000 times einai random strings me times AGCT length =5
+
+A tropos
+
+```{r}
+
+myVec_length = 1000
+add_Length = 500
+
+chars = c("A","C","G","T")
+
+myStrings = replicate(myVec_length,paste(sample(chars,5,replace = TRUE), collapse=""))
+myStrings
+
+newVec = rep("AAAAA",add_Length)
+
+myStrings = c(myStrings,newVec)
+
+#myStrings
+
+myList = list()
+myList[["a"]]
+
+for (elem in myStrings){
+  if(is.null(myList[[elem]])){
+    myList[[elem]]=1
+  }
+  else{
+    myList[[elem]] = myList[[elem]]+1
+  }
+}
+
+myList
+```
+
+B tropos
+
+```{r}
+generateString - function(i){
+  paste(sampe(c('A','C','G','T'),5,replace=T), collapse = "")
+}
+
+
+tinytex::install_tinytex()
+```
+
+#### 

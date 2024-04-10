@@ -19,7 +19,7 @@ ta = read.table("GDS6063_cleaned.soft",sep = "\t",header = T,na.strings = "null"
 print(head(ta,n=5))
 
 ta = ta[,3:ncol(ta)]
-ta = na.omit(myT1_trim)
+ta = na.omit(ta)
 
 
 boxplot(ta)
