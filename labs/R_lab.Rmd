@@ -1,0 +1,43 @@
+---
+title: "R-Lab-Exercises"
+output: html_notebook
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+## R Markdown
+
+1.  δημιουργια ενος βεκτορ με 1500 τιμες μηκους 5, οπου οι πρωτες χιλιες
+    θα ειναι συνδυασμος των AGCT και οι υπολοιπες ΑΑΑΑΑ
+
+```{r}
+
+myVec_length = 1000 
+add_Length = 500
+
+chars = c("A","C","G","T")
+
+myStrings = replicate(myVec_length,paste(sample(chars,5,replace = TRUE), collapse=""))
+
+# myStrings
+
+newVec = rep("AAAAA",add_Length)
+
+myStrings = c(myStrings,newVec)
+
+# myStrings
+
+myList = list() 
+myList[["a"]]
+
+for (elem in myStrings){ 
+  if(is.null(myList[[elem]])){ 
+    myList[[elem]]=1 
+  } else{ 
+      myList[[elem]] = myList[[elem]]+1 
+  } 
+}
+
+# myList
+```
