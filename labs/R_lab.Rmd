@@ -1,4 +1,5 @@
 ---
+calc---
 title: "R-Lab-Exercises"
 output: html_notebook
 editor_options: 
@@ -22,17 +23,13 @@ editor_options:
 
 #### X1
 
-\- δημιουργια ενος βεκτορ με 1500 τιμες μηκους 5, οπου οι πρωτες 1000 θα
-ειναι συνδυασμος των AGCT και οι υπολοιπες 500 ΑΑΑΑΑ
+\- δημιουργια ενος βεκτορ με 1500 τιμες μηκους 5, οπου οι πρωτες 1000 θα ειναι συνδυασμος των AGCT και οι υπολοιπες 500 ΑΑΑΑΑ
 
--   `replicate(vec_length,paste(sample(myCharacters,nucleos,replace = TRUE), collapse=""))` -
-    επαναλαμβανει vec_length την διαδικασια paste
+-   `replicate(vec_length,paste(sample(myCharacters,nucleos,replace = TRUE), collapse=""))` - επαναλαμβανει vec_length την διαδικασια paste
 
--   `paste(sample(myCharacters,nucleos,replace=TRUE), collapse="")` -
-    "συνενωνει"" σε ενα string τα samples χωρις κενα
+-   `paste(sample(myCharacters,nucleos,replace=TRUE), collapse="")` - "συνενωνει"" σε ενα string τα samples χωρις κενα
 
--   `sample(myCharacters,nucleos,replace=TRUE)` - δημιουργια δειγματος
-    των γραμματων AGCT στοιχειων μηκους 5 (nucleos) με επανατοπθετηση
+-   `sample(myCharacters,nucleos,replace=TRUE)` - δημιουργια δειγματος των γραμματων AGCT στοιχειων μηκους 5 (nucleos) με επανατοπθετηση
 
 ```{r}
 
@@ -62,13 +59,11 @@ df2 = data.frame(final_string)
 
 #### X2
 
-\- ευρεση των νουκλεοτιδιων (πχ ACGTT) στη λιστα και ποσες φορες υπαρχει
-αν υπαρχει για το καθενα
+\- ευρεση των νουκλεοτιδιων (πχ ACGTT) στη λιστα και ποσες φορες υπαρχει αν υπαρχει για το καθενα
 
 -   `myList = list()` δημιουργια κενης λιστας
 
--    `if(is.null(myList[[elem]]))` - εαν το στοιχειο δεν υπάρχει στη
-    λιστα κανε την τιμη στη θεση 1
+-   `if(is.null(myList[[elem]]))` - εαν το στοιχειο δεν υπάρχει στη λιστα κανε την τιμη στη θεση 1
 
 -   αλλιως αν υπαρχει αυξησε τη κατα 1
 
