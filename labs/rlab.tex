@@ -1,0 +1,837 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={R Notebook},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{R Notebook}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\subsection{R Markdown}\label{r-markdown}
+
+\begin{itemize}
+\item
+  \emph{Clean environment}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{rm(list\ =\ ls())}
+  \end{itemize}
+\item
+  \emph{Remove specific object in the environment}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{rm(objectX)} or \texttt{rm(objectX,objectY,..)}
+  \end{itemize}
+\item
+  \emph{Preview notebook}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{Ctrl\ +\ Shift\ +\ Q}
+  \end{itemize}
+\end{itemize}
+
+\paragraph{X1}\label{x1}
+
+- δημιουργια ενος βεκτορ με 1500 τιμες μηκους 5, οπου οι πρωτες 1000 θα
+ειναι συνδυασμος των AGCT και οι υπολοιπες 500 ΑΑΑΑΑ
+
+\begin{itemize}
+\item
+  \texttt{replicate(vec\_length,paste(sample(myCharacters,nucleos,replace\ =\ TRUE),\ collapse=""))}
+  - επαναλαμβανει vec\_length την διαδικασια paste
+\item
+  \texttt{paste(sample(myCharacters,nucleos,replace=TRUE),\ collapse="")}
+  - ``συνενωνει'''' σε ενα string τα samples χωρις κενα
+\item
+  \texttt{sample(myCharacters,nucleos,replace=TRUE)} - δημιουργια
+  δειγματος των γραμματων AGCT στοιχειων μηκους 5 (nucleos) με
+  επανατοπθετηση
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec\_length }\OtherTok{=} \DecValTok{1000} 
+\NormalTok{add\_length }\OtherTok{=} \DecValTok{500}
+\NormalTok{nucleos }\OtherTok{=} \DecValTok{5}
+
+\NormalTok{myCharacters }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{,}\StringTok{"C"}\NormalTok{,}\StringTok{"G"}\NormalTok{,}\StringTok{"T"}\NormalTok{) }\CommentTok{\# create a vector }
+
+
+\NormalTok{start\_string }\OtherTok{=} \FunctionTok{replicate}\NormalTok{(vec\_length,}\FunctionTok{paste}\NormalTok{(}\FunctionTok{sample}\NormalTok{(myCharacters,nucleos,}\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{collapse=}\StringTok{""}\NormalTok{))}
+
+
+\NormalTok{df1 }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(start\_string)}
+
+
+\NormalTok{dummy\_vec }\OtherTok{=} \FunctionTok{rep}\NormalTok{(}\StringTok{"AAAAA"}\NormalTok{,add\_length) }\CommentTok{\# δημιουρια 500 ΑΑΑΑΑ δειγματων}
+
+\NormalTok{final\_string }\OtherTok{=} \FunctionTok{c}\NormalTok{(start\_string,dummy\_vec) }\CommentTok{\# concat vectors }
+
+
+\NormalTok{df2 }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(final\_string)}
+
+
+\CommentTok{\# myList}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{X2}\label{x2}
+
+- ευρεση των νουκλεοτιδιων (πχ ACGTT) στη λιστα και ποσες φορες υπαρχει
+αν υπαρχει για το καθενα
+
+\begin{itemize}
+\item
+  \texttt{myList\ =\ list()} δημιουργια κενης λιστας
+\item
+  \texttt{if(is.null(myList{[}{[}elem{]}{]}))} - εαν το στοιχειο δεν
+  υπάρχει στη λιστα κανε την τιμη στη θεση 1
+\item
+  αλλιως αν υπαρχει αυξησε τη κατα 1
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myList }\OtherTok{=} \FunctionTok{list}\NormalTok{() }
+\NormalTok{myList[[}\StringTok{"a"}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (elem }\ControlFlowTok{in}\NormalTok{ final\_string)\{ }
+  \ControlFlowTok{if}\NormalTok{(}\FunctionTok{is.null}\NormalTok{(myList[[elem]]))\{ }
+\NormalTok{    myList[[elem]]}\OtherTok{=}\DecValTok{1}
+\NormalTok{  \} }
+  \ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{      myList[[elem]] }\OtherTok{=}\NormalTok{ myList[[elem]] }\SpecialCharTok{+} \DecValTok{1} 
+\NormalTok{  \} }
+\NormalTok{\}}
+
+\NormalTok{df3 }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(myList)}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{Χ3}\label{ux3c73}
+
+- δημιουργια vector 100000 στοιχειων και καταμετρηση των νουκλεωτιδιων
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myCharacters }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{,}\StringTok{"C"}\NormalTok{,}\StringTok{"G"}\NormalTok{,}\StringTok{"T"}\NormalTok{)}
+\CommentTok{\# nsize = 10000}
+\NormalTok{n }\OtherTok{=} \DecValTok{5}
+
+
+\NormalTok{new\_vec }\OtherTok{=} \FunctionTok{sample}\NormalTok{(myCharacters, }\DecValTok{10000}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{new\_vec}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     [1] "T" "A" "A" "G" "A" "A" "C" "C" "A" "C" "A" "C" "T" "G" "A" "G" "G" "T"
+##    [19] "T" "C" "C" "T" "G" "T" "A" "A" "C" "G" "T" "G" "G" "G" "A" "T" "T" "C"
+##    [37] "C" "A" "A" "A" "G" "T" "G" "A" "C" "C" "T" "T" "G" "T" "G" "G" "A" "C"
+##    [55] "T" "C" "T" "C" "G" "A" "T" "A" "A" "T" "G" "T" "T" "T" "T" "T" "A" "C"
+##    [73] "G" "A" "C" "T" "T" "G" "A" "T" "G" "A" "A" "C" "C" "T" "G" "T" "G" "C"
+##    [91] "C" "C" "G" "G" "C" "G" "T" "G" "G" "G" "A" "C" "G" "G" "C" "G" "T" "G"
+##   [109] "A" "A" "T" "G" "C" "A" "T" "A" "T" "G" "A" "G" "A" "A" "T" "G" "C" "A"
+##   [127] "A" "A" "C" "A" "A" "C" "T" "A" "A" "A" "A" "G" "A" "T" "T" "A" "T" "A"
+##   [145] "T" "C" "A" "T" "T" "G" "C" "C" "A" "G" "G" "A" "C" "A" "C" "C" "C" "T"
+##   [163] "C" "A" "A" "G" "T" "T" "A" "C" "G" "T" "G" "C" "C" "C" "C" "G" "A" "G"
+##   [181] "G" "C" "A" "A" "C" "C" "G" "C" "T" "A" "T" "T" "A" "C" "T" "G" "A" "T"
+##   [199] "C" "G" "A" "T" "T" "T" "C" "T" "T" "A" "G" "G" "A" "C" "G" "A" "A" "G"
+##   [217] "A" "C" "G" "A" "C" "C" "G" "T" "T" "C" "C" "G" "C" "T" "G" "A" "G" "A"
+##   [235] "T" "T" "T" "T" "A" "G" "A" "G" "T" "G" "C" "G" "T" "C" "A" "A" "G" "G"
+##   [253] "A" "T" "G" "G" "T" "T" "A" "C" "G" "A" "T" "A" "A" "A" "G" "C" "G" "T"
+##   [271] "A" "G" "C" "G" "T" "C" "C" "A" "C" "C" "A" "A" "G" "C" "G" "A" "A" "C"
+##   [289] "C" "C" "G" "C" "A" "G" "G" "T" "T" "A" "C" "C" "A" "G" "A" "A" "C" "A"
+##   [307] "A" "T" "G" "T" "A" "G" "G" "C" "A" "G" "A" "G" "C" "C" "G" "T" "C" "C"
+##   [325] "T" "C" "A" "T" "C" "G" "A" "T" "C" "T" "G" "T" "C" "C" "T" "C" "G" "G"
+##   [343] "C" "C" "C" "T" "C" "T" "A" "A" "A" "C" "G" "C" "G" "C" "G" "A" "T" "A"
+##   [361] "T" "G" "C" "C" "T" "G" "A" "C" "G" "G" "C" "T" "T" "T" "T" "G" "G" "G"
+##   [379] "A" "T" "C" "T" "G" "G" "A" "C" "A" "T" "G" "C" "T" "C" "T" "A" "G" "G"
+##   [397] "G" "C" "C" "G" "T" "T" "T" "A" "T" "A" "A" "G" "T" "C" "G" "T" "C" "A"
+##   [415] "G" "T" "T" "G" "C" "G" "G" "C" "A" "T" "A" "G" "C" "G" "A" "G" "G" "T"
+##   [433] "A" "T" "T" "C" "T" "T" "G" "C" "T" "C" "A" "A" "T" "C" "C" "C" "T" "T"
+##   [451] "C" "G" "G" "G" "T" "T" "G" "A" "T" "C" "C" "G" "T" "C" "G" "T" "C" "T"
+##   [469] "T" "G" "G" "T" "A" "A" "T" "G" "T" "A" "C" "T" "A" "T" "T" "C" "A" "C"
+##   [487] "T" "T" "C" "C" "T" "G" "T" "A" "T" "G" "G" "T" "G" "T" "G" "A" "A" "T"
+##   [505] "C" "T" "C" "T" "A" "C" "C" "G" "T" "A" "A" "T" "C" "T" "C" "G" "T" "T"
+##   [523] "A" "A" "A" "A" "G" "G" "G" "C" "C" "T" "G" "T" "T" "A" "T" "C" "A" "T"
+##   [541] "A" "A" "T" "T" "C" "T" "G" "G" "A" "A" "G" "G" "A" "G" "T" "T" "T" "T"
+##   [559] "T" "C" "A" "T" "C" "C" "G" "T" "C" "T" "G" "G" "T" "C" "T" "G" "A" "T"
+##   [577] "C" "A" "A" "A" "G" "A" "T" "C" "A" "G" "T" "A" "T" "G" "A" "T" "C" "C"
+##   [595] "C" "T" "G" "T" "A" "A" "A" "T" "T" "A" "G" "A" "A" "C" "G" "A" "T" "T"
+##   [613] "G" "A" "A" "C" "C" "G" "T" "A" "G" "C" "A" "G" "A" "T" "A" "C" "A" "A"
+##   [631] "A" "A" "G" "A" "C" "G" "A" "G" "G" "T" "C" "C" "A" "G" "A" "T" "A" "T"
+##   [649] "T" "A" "G" "C" "T" "G" "G" "C" "G" "C" "A" "C" "C" "A" "T" "T" "G" "C"
+##   [667] "A" "C" "A" "C" "A" "T" "C" "A" "C" "T" "A" "G" "A" "C" "A" "A" "T" "T"
+##   [685] "A" "G" "A" "C" "C" "A" "C" "C" "C" "G" "A" "A" "C" "G" "C" "C" "G" "C"
+##   [703] "T" "T" "C" "G" "C" "G" "G" "A" "C" "C" "A" "T" "T" "C" "A" "G" "A" "G"
+##   [721] "T" "C" "G" "G" "T" "A" "G" "A" "C" "T" "C" "A" "C" "G" "C" "C" "G" "C"
+##   [739] "A" "T" "C" "C" "G" "G" "T" "C" "C" "A" "A" "A" "T" "C" "T" "G" "C" "T"
+##   [757] "C" "A" "T" "T" "G" "G" "G" "C" "G" "A" "A" "G" "C" "C" "C" "T" "G" "T"
+##   [775] "C" "A" "A" "G" "A" "A" "C" "A" "C" "T" "G" "T" "C" "C" "G" "G" "G" "T"
+##   [793] "C" "A" "T" "G" "G" "T" "A" "G" "C" "A" "A" "G" "T" "A" "G" "A" "A" "T"
+##   [811] "T" "C" "G" "G" "A" "A" "G" "A" "G" "T" "C" "C" "A" "G" "T" "A" "C" "G"
+##   [829] "C" "T" "C" "G" "T" "C" "C" "A" "C" "T" "T" "G" "T" "A" "T" "T" "A" "A"
+##   [847] "A" "T" "G" "T" "A" "G" "A" "G" "A" "A" "A" "C" "G" "G" "C" "A" "A" "T"
+##   [865] "A" "G" "T" "A" "C" "A" "C" "T" "G" "G" "C" "T" "A" "C" "C" "A" "C" "C"
+##   [883] "T" "A" "T" "C" "C" "G" "G" "T" "T" "C" "T" "C" "A" "A" "C" "C" "C" "A"
+##   [901] "G" "G" "A" "G" "T" "C" "A" "C" "C" "A" "T" "C" "A" "G" "A" "C" "A" "G"
+##   [919] "G" "C" "A" "C" "T" "T" "C" "G" "T" "G" "C" "G" "G" "G" "C" "G" "A" "T"
+##   [937] "A" "C" "A" "A" "C" "G" "G" "C" "A" "C" "C" "C" "T" "A" "C" "C" "G" "A"
+##   [955] "T" "A" "T" "G" "G" "A" "C" "T" "T" "C" "T" "A" "G" "G" "G" "A" "C" "A"
+##   [973] "A" "A" "A" "G" "G" "T" "T" "G" "T" "A" "A" "C" "G" "G" "C" "T" "T" "C"
+##   [991] "A" "T" "A" "A" "C" "A" "T" "A" "C" "G" "G" "A" "T" "A" "C" "T" "C" "T"
+##  [1009] "C" "G" "T" "C" "T" "G" "T" "G" "G" "G" "C" "T" "C" "G" "A" "A" "C" "T"
+##  [1027] "T" "G" "C" "G" "A" "G" "C" "A" "G" "G" "C" "G" "A" "A" "C" "G" "A" "T"
+##  [1045] "T" "T" "A" "A" "A" "A" "C" "C" "C" "A" "A" "C" "A" "C" "A" "A" "T" "A"
+##  [1063] "C" "C" "T" "G" "C" "G" "A" "T" "G" "C" "A" "C" "A" "T" "G" "T" "A" "T"
+##  [1081] "T" "G" "A" "C" "T" "A" "C" "T" "C" "C" "A" "G" "G" "A" "C" "T" "A" "T"
+##  [1099] "A" "T" "T" "C" "C" "T" "T" "G" "A" "T" "C" "C" "G" "A" "A" "G" "T" "C"
+##  [1117] "C" "G" "T" "T" "A" "A" "A" "T" "G" "C" "A" "T" "G" "A" "G" "C" "C" "A"
+##  [1135] "A" "A" "C" "C" "A" "G" "A" "A" "A" "T" "G" "T" "A" "T" "A" "T" "C" "T"
+##  [1153] "T" "C" "G" "T" "A" "A" "G" "T" "C" "A" "T" "C" "G" "A" "A" "T" "A" "G"
+##  [1171] "G" "A" "C" "T" "G" "T" "A" "A" "G" "C" "A" "C" "T" "A" "A" "G" "A" "G"
+##  [1189] "C" "A" "G" "A" "G" "T" "G" "A" "T" "G" "C" "G" "G" "G" "C" "G" "A" "A"
+##  [1207] "C" "T" "T" "C" "G" "T" "T" "G" "G" "T" "T" "G" "G" "C" "C" "G" "G" "G"
+##  [1225] "T" "G" "T" "A" "T" "T" "G" "T" "G" "C" "T" "T" "T" "G" "C" "G" "A" "C"
+##  [1243] "C" "A" "A" "G" "T" "G" "C" "C" "G" "T" "A" "C" "A" "T" "C" "T" "T" "C"
+##  [1261] "C" "A" "G" "T" "T" "G" "G" "T" "G" "C" "A" "C" "T" "G" "A" "A" "A" "T"
+##  [1279] "T" "T" "C" "C" "T" "A" "C" "A" "T" "T" "C" "G" "T" "T" "G" "T" "T" "G"
+##  [1297] "C" "T" "G" "A" "A" "T" "A" "A" "C" "G" "T" "C" "G" "A" "A" "T" "G" "T"
+##  [1315] "T" "G" "T" "T" "T" "T" "C" "C" "A" "T" "T" "A" "C" "A" "G" "G" "C" "G"
+##  [1333] "T" "A" "T" "C" "T" "G" "T" "C" "A" "G" "G" "G" "A" "A" "A" "A" "G" "C"
+##  [1351] "T" "C" "A" "T" "G" "C" "A" "G" "T" "T" "C" "G" "G" "T" "A" "A" "A" "T"
+##  [1369] "T" "T" "T" "G" "A" "C" "T" "T" "G" "C" "G" "A" "C" "G" "C" "A" "T" "G"
+##  [1387] "G" "T" "G" "T" "A" "T" "G" "G" "G" "G" "A" "T" "G" "G" "T" "C" "C" "T"
+##  [1405] "C" "A" "T" "T" "C" "A" "C" "T" "A" "A" "C" "T" "C" "A" "A" "C" "T" "T"
+##  [1423] "G" "C" "A" "C" "G" "C" "C" "A" "G" "C" "C" "A" "A" "A" "G" "A" "A" "A"
+##  [1441] "T" "A" "C" "C" "A" "G" "T" "A" "C" "A" "C" "T" "T" "G" "G" "A" "G" "G"
+##  [1459] "G" "C" "T" "G" "C" "G" "T" "A" "C" "A" "G" "T" "T" "G" "G" "A" "A" "T"
+##  [1477] "A" "T" "A" "A" "T" "T" "A" "C" "A" "A" "G" "T" "T" "C" "T" "A" "T" "G"
+##  [1495] "T" "A" "G" "C" "A" "T" "T" "A" "G" "C" "C" "G" "C" "T" "A" "T" "A" "C"
+##  [1513] "C" "T" "A" "C" "A" "T" "A" "T" "A" "A" "C" "A" "G" "G" "A" "G" "T" "T"
+##  [1531] "A" "G" "T" "T" "A" "A" "T" "G" "G" "G" "C" "C" "C" "G" "C" "A" "A" "A"
+##  [1549] "A" "G" "A" "A" "G" "C" "C" "T" "C" "G" "C" "T" "C" "A" "G" "A" "A" "T"
+##  [1567] "A" "A" "T" "T" "G" "A" "T" "T" "T" "A" "A" "G" "G" "T" "G" "T" "G" "C"
+##  [1585] "A" "T" "T" "A" "T" "A" "T" "A" "A" "C" "C" "A" "G" "A" "C" "T" "A" "A"
+##  [1603] "G" "T" "T" "C" "A" "T" "A" "C" "A" "G" "T" "G" "G" "G" "A" "A" "T" "A"
+##  [1621] "T" "A" "C" "A" "A" "G" "T" "A" "C" "A" "C" "A" "C" "A" "A" "G" "A" "T"
+##  [1639] "T" "A" "A" "G" "A" "C" "G" "A" "A" "C" "T" "C" "T" "T" "T" "C" "G" "T"
+##  [1657] "G" "G" "G" "A" "A" "C" "G" "T" "G" "T" "A" "T" "G" "C" "A" "T" "C" "G"
+##  [1675] "G" "A" "A" "A" "A" "C" "G" "A" "G" "T" "A" "A" "C" "T" "T" "A" "G" "G"
+##  [1693] "T" "G" "C" "G" "G" "A" "T" "T" "C" "C" "C" "T" "C" "G" "C" "T" "G" "G"
+##  [1711] "C" "A" "G" "T" "T" "G" "G" "A" "A" "G" "C" "G" "C" "C" "T" "G" "C" "C"
+##  [1729] "C" "C" "T" "A" "C" "C" "C" "T" "C" "C" "T" "A" "T" "G" "C" "T" "G" "C"
+##  [1747] "T" "G" "A" "A" "T" "C" "T" "T" "C" "C" "A" "A" "C" "T" "A" "C" "C" "C"
+##  [1765] "C" "T" "C" "A" "T" "T" "C" "T" "C" "T" "G" "T" "G" "G" "T" "A" "T" "G"
+##  [1783] "G" "A" "A" "G" "T" "C" "G" "G" "T" "A" "C" "C" "G" "A" "A" "T" "T" "A"
+##  [1801] "A" "G" "T" "C" "T" "T" "T" "C" "T" "A" "C" "T" "A" "G" "C" "A" "T" "T"
+##  [1819] "G" "C" "G" "A" "A" "G" "C" "G" "C" "G" "C" "C" "G" "A" "T" "A" "C" "G"
+##  [1837] "C" "A" "C" "T" "G" "A" "T" "A" "T" "A" "T" "A" "G" "G" "G" "G" "T" "C"
+##  [1855] "T" "G" "G" "T" "G" "G" "C" "A" "G" "C" "T" "G" "C" "G" "A" "T" "T" "A"
+##  [1873] "T" "A" "C" "A" "C" "T" "G" "A" "T" "T" "A" "G" "A" "G" "C" "T" "T" "G"
+##  [1891] "A" "A" "C" "A" "A" "C" "A" "G" "T" "C" "C" "T" "G" "T" "C" "C" "G" "G"
+##  [1909] "T" "G" "T" "G" "T" "A" "G" "C" "T" "G" "T" "G" "A" "G" "T" "T" "G" "G"
+##  [1927] "G" "G" "C" "A" "C" "A" "T" "G" "A" "C" "G" "G" "G" "C" "G" "T" "C" "T"
+##  [1945] "G" "T" "T" "A" "T" "C" "A" "A" "G" "G" "G" "G" "G" "C" "T" "G" "G" "C"
+##  [1963] "G" "A" "A" "A" "G" "T" "C" "C" "G" "G" "C" "A" "T" "C" "C" "T" "G" "A"
+##  [1981] "T" "G" "T" "G" "A" "G" "A" "G" "A" "T" "C" "A" "T" "T" "C" "T" "C" "A"
+##  [1999] "C" "T" "C" "G" "A" "T" "A" "A" "T" "A" "C" "A" "A" "C" "G" "C" "A" "A"
+##  [2017] "A" "G" "A" "C" "C" "A" "T" "C" "C" "G" "C" "C" "T" "C" "G" "T" "T" "G"
+##  [2035] "T" "C" "A" "A" "C" "G" "T" "T" "T" "C" "A" "C" "G" "G" "G" "G" "G" "G"
+##  [2053] "T" "G" "T" "G" "T" "A" "G" "T" "G" "G" "T" "A" "C" "G" "A" "T" "A" "T"
+##  [2071] "A" "A" "G" "T" "C" "C" "T" "C" "C" "G" "T" "T" "C" "C" "G" "T" "T" "T"
+##  [2089] "A" "A" "A" "A" "G" "G" "C" "C" "T" "G" "T" "G" "T" "T" "C" "C" "C" "C"
+##  [2107] "A" "G" "A" "G" "T" "A" "A" "G" "C" "T" "T" "C" "G" "A" "T" "T" "T" "G"
+##  [2125] "T" "T" "C" "C" "A" "T" "G" "A" "A" "A" "A" "C" "T" "T" "C" "C" "A" "G"
+##  [2143] "G" "G" "T" "G" "A" "T" "A" "T" "T" "C" "C" "T" "C" "A" "G" "C" "T" "T"
+##  [2161] "A" "A" "C" "G" "G" "G" "G" "A" "G" "C" "G" "C" "C" "A" "A" "G" "T" "C"
+##  [2179] "A" "G" "G" "T" "A" "G" "T" "C" "G" "G" "C" "A" "T" "T" "A" "T" "A" "G"
+##  [2197] "G" "T" "G" "C" "T" "A" "G" "G" "A" "C" "G" "A" "A" "G" "G" "A" "C" "A"
+##  [2215] "C" "A" "G" "A" "A" "A" "G" "G" "G" "T" "G" "G" "G" "A" "C" "C" "C" "T"
+##  [2233] "A" "G" "G" "G" "T" "C" "G" "G" "C" "G" "C" "T" "G" "A" "A" "G" "G" "A"
+##  [2251] "C" "G" "G" "T" "A" "C" "A" "T" "T" "C" "G" "T" "A" "G" "T" "A" "A" "C"
+##  [2269] "C" "G" "C" "T" "C" "T" "A" "G" "C" "C" "C" "T" "T" "G" "A" "C" "A" "T"
+##  [2287] "A" "T" "T" "A" "G" "T" "C" "A" "G" "T" "G" "A" "C" "T" "C" "T" "A" "G"
+##  [2305] "C" "T" "T" "T" "T" "A" "C" "T" "C" "C" "C" "C" "T" "C" "T" "A" "C" "T"
+##  [2323] "C" "T" "C" "G" "T" "T" "G" "T" "A" "T" "A" "C" "C" "A" "A" "T" "C" "G"
+##  [2341] "C" "C" "A" "T" "T" "C" "G" "G" "T" "G" "T" "C" "G" "C" "C" "G" "G" "A"
+##  [2359] "G" "A" "G" "G" "G" "A" "A" "T" "T" "T" "A" "A" "G" "C" "A" "A" "A" "A"
+##  [2377] "A" "A" "A" "T" "T" "A" "C" "T" "A" "T" "A" "C" "A" "T" "T" "T" "A" "C"
+##  [2395] "C" "C" "G" "G" "G" "A" "A" "G" "T" "A" "T" "T" "A" "A" "A" "T" "A" "C"
+##  [2413] "A" "T" "G" "G" "G" "G" "G" "G" "A" "A" "A" "A" "T" "T" "G" "A" "C" "T"
+##  [2431] "T" "A" "T" "C" "G" "G" "A" "A" "C" "G" "A" "A" "T" "C" "T" "C" "G" "G"
+##  [2449] "C" "T" "G" "A" "G" "A" "T" "T" "G" "A" "G" "G" "A" "A" "G" "A" "C" "G"
+##  [2467] "G" "C" "C" "T" "A" "G" "G" "C" "A" "G" "T" "G" "G" "G" "T" "T" "A" "C"
+##  [2485] "A" "A" "T" "A" "G" "C" "A" "C" "T" "T" "C" "C" "T" "T" "A" "G" "C" "C"
+##  [2503] "A" "G" "C" "A" "A" "T" "T" "T" "C" "A" "G" "T" "G" "A" "A" "T" "C" "A"
+##  [2521] "A" "C" "A" "C" "C" "A" "G" "T" "T" "A" "G" "C" "T" "G" "G" "A" "A" "G"
+##  [2539] "T" "C" "G" "G" "G" "T" "C" "T" "C" "T" "C" "T" "C" "C" "G" "A" "T" "G"
+##  [2557] "G" "G" "G" "C" "A" "T" "A" "A" "A" "T" "C" "A" "C" "A" "G" "G" "A" "G"
+##  [2575] "T" "T" "C" "A" "T" "T" "A" "A" "A" "G" "G" "T" "A" "C" "G" "G" "A" "A"
+##  [2593] "G" "A" "T" "A" "C" "G" "A" "C" "T" "T" "T" "C" "A" "C" "C" "T" "G" "A"
+##  [2611] "C" "C" "A" "T" "T" "T" "A" "A" "C" "A" "G" "T" "C" "T" "C" "G" "C" "C"
+##  [2629] "G" "G" "A" "A" "T" "C" "T" "T" "A" "A" "C" "T" "A" "T" "A" "T" "T" "C"
+##  [2647] "A" "T" "C" "A" "G" "C" "T" "A" "T" "C" "A" "G" "G" "C" "A" "A" "C" "C"
+##  [2665] "A" "T" "A" "T" "G" "C" "G" "C" "A" "G" "T" "T" "A" "T" "T" "C" "G" "A"
+##  [2683] "G" "A" "T" "T" "T" "A" "C" "G" "G" "G" "A" "G" "T" "A" "C" "T" "C" "C"
+##  [2701] "T" "C" "T" "C" "G" "T" "T" "C" "A" "A" "C" "C" "G" "A" "G" "A" "T" "C"
+##  [2719] "A" "G" "G" "A" "A" "A" "C" "T" "C" "C" "G" "T" "T" "A" "G" "G" "A" "T"
+##  [2737] "G" "C" "A" "C" "G" "G" "T" "G" "C" "C" "T" "T" "A" "C" "A" "T" "T" "C"
+##  [2755] "C" "T" "C" "T" "A" "A" "C" "G" "G" "C" "T" "T" "A" "T" "T" "C" "A" "G"
+##  [2773] "A" "T" "G" "G" "C" "A" "T" "G" "G" "C" "T" "C" "G" "A" "C" "A" "A" "A"
+##  [2791] "C" "G" "C" "C" "A" "C" "A" "A" "G" "T" "A" "G" "C" "T" "T" "C" "G" "T"
+##  [2809] "C" "T" "C" "A" "C" "C" "A" "A" "A" "A" "C" "G" "C" "G" "T" "G" "C" "C"
+##  [2827] "C" "G" "C" "G" "C" "C" "A" "G" "G" "A" "A" "T" "G" "T" "C" "G" "G" "G"
+##  [2845] "A" "G" "G" "A" "G" "T" "A" "G" "G" "C" "C" "G" "T" "C" "C" "C" "A" "A"
+##  [2863] "G" "T" "A" "C" "T" "C" "G" "G" "A" "C" "C" "A" "T" "G" "G" "T" "A" "A"
+##  [2881] "T" "G" "C" "A" "T" "C" "A" "C" "T" "T" "T" "A" "A" "T" "T" "C" "C" "T"
+##  [2899] "C" "G" "T" "A" "A" "T" "T" "C" "A" "T" "G" "T" "T" "G" "A" "C" "C" "G"
+##  [2917] "A" "C" "A" "G" "T" "G" "G" "G" "T" "A" "T" "C" "G" "A" "G" "C" "G" "G"
+##  [2935] "G" "G" "G" "C" "G" "A" "A" "T" "A" "G" "A" "G" "A" "G" "C" "A" "T" "C"
+##  [2953] "G" "G" "T" "C" "T" "A" "T" "G" "C" "A" "C" "T" "C" "C" "A" "T" "G" "C"
+##  [2971] "C" "G" "G" "A" "G" "T" "G" "T" "G" "G" "T" "A" "C" "C" "G" "C" "T" "G"
+##  [2989] "G" "C" "C" "T" "G" "G" "G" "G" "T" "C" "T" "T" "G" "T" "C" "T" "C" "C"
+##  [3007] "A" "T" "T" "A" "A" "A" "T" "A" "T" "T" "T" "A" "C" "C" "T" "G" "A" "C"
+##  [3025] "T" "G" "G" "A" "T" "G" "G" "G" "G" "T" "G" "A" "T" "C" "G" "C" "C" "A"
+##  [3043] "G" "A" "A" "C" "C" "G" "A" "C" "T" "C" "T" "A" "A" "C" "G" "C" "A" "G"
+##  [3061] "T" "C" "C" "T" "C" "G" "G" "T" "T" "T" "A" "C" "T" "C" "G" "G" "T" "T"
+##  [3079] "T" "C" "T" "G" "A" "A" "C" "G" "G" "C" "T" "T" "C" "C" "G" "T" "T" "A"
+##  [3097] "C" "T" "T" "G" "G" "T" "A" "G" "G" "A" "T" "A" "T" "T" "T" "C" "C" "C"
+##  [3115] "C" "T" "T" "C" "G" "C" "C" "G" "A" "T" "G" "T" "C" "T" "C" "G" "T" "G"
+##  [3133] "A" "G" "G" "G" "T" "C" "A" "C" "A" "A" "A" "G" "A" "C" "T" "T" "A" "T"
+##  [3151] "T" "T" "T" "G" "G" "T" "A" "C" "G" "A" "A" "A" "T" "A" "A" "G" "T" "T"
+##  [3169] "G" "T" "T" "G" "A" "C" "T" "G" "T" "A" "A" "C" "G" "G" "G" "G" "G" "T"
+##  [3187] "C" "G" "A" "G" "G" "G" "T" "A" "T" "A" "C" "C" "G" "G" "C" "T" "A" "A"
+##  [3205] "A" "T" "T" "G" "A" "G" "G" "A" "G" "C" "T" "C" "T" "C" "T" "G" "G" "A"
+##  [3223] "T" "C" "G" "G" "T" "A" "C" "T" "A" "T" "T" "T" "T" "A" "C" "A" "G" "A"
+##  [3241] "T" "C" "A" "T" "A" "A" "C" "T" "C" "A" "G" "G" "C" "C" "C" "C" "A" "G"
+##  [3259] "G" "G" "A" "C" "A" "T" "C" "T" "C" "T" "A" "A" "A" "G" "A" "T" "T" "C"
+##  [3277] "A" "G" "G" "T" "C" "A" "G" "C" "A" "C" "C" "C" "C" "T" "C" "G" "C" "C"
+##  [3295] "T" "T" "T" "T" "C" "T" "G" "A" "T" "G" "G" "T" "A" "A" "G" "C" "A" "A"
+##  [3313] "G" "T" "C" "G" "G" "T" "C" "T" "G" "G" "A" "A" "G" "T" "A" "G" "A" "C"
+##  [3331] "T" "G" "C" "G" "C" "C" "T" "G" "C" "A" "T" "T" "G" "T" "T" "G" "C" "A"
+##  [3349] "T" "A" "C" "C" "C" "A" "A" "G" "A" "T" "C" "T" "C" "G" "G" "C" "T" "T"
+##  [3367] "T" "G" "A" "T" "G" "G" "T" "G" "G" "C" "A" "G" "C" "G" "G" "C" "G" "G"
+##  [3385] "G" "A" "T" "T" "A" "A" "T" "C" "C" "T" "G" "T" "C" "G" "T" "A" "T" "G"
+##  [3403] "G" "T" "G" "T" "G" "C" "C" "T" "G" "G" "C" "A" "G" "T" "A" "G" "G" "C"
+##  [3421] "C" "A" "G" "A" "T" "C" "C" "T" "A" "T" "T" "A" "C" "G" "C" "T" "T" "C"
+##  [3439] "C" "C" "C" "C" "T" "A" "T" "A" "T" "T" "A" "G" "G" "A" "T" "G" "T" "T"
+##  [3457] "T" "G" "T" "A" "A" "G" "T" "G" "G" "G" "C" "A" "G" "A" "A" "C" "G" "A"
+##  [3475] "T" "T" "T" "C" "A" "T" "A" "G" "C" "A" "C" "T" "A" "T" "C" "C" "A" "T"
+##  [3493] "A" "A" "G" "A" "C" "C" "T" "T" "G" "A" "G" "C" "C" "G" "T" "A" "C" "C"
+##  [3511] "A" "C" "C" "A" "T" "G" "G" "G" "A" "G" "G" "T" "A" "C" "C" "G" "A" "A"
+##  [3529] "G" "A" "G" "G" "C" "C" "C" "C" "A" "C" "C" "G" "C" "G" "C" "G" "C" "T"
+##  [3547] "T" "C" "T" "T" "T" "C" "G" "C" "T" "A" "G" "A" "C" "C" "A" "A" "C" "T"
+##  [3565] "T" "T" "G" "G" "G" "C" "G" "C" "G" "T" "T" "G" "G" "G" "T" "C" "C" "G"
+##  [3583] "A" "T" "A" "A" "G" "A" "G" "T" "C" "A" "G" "T" "A" "T" "C" "C" "C" "A"
+##  [3601] "T" "C" "A" "T" "C" "T" "G" "A" "T" "A" "C" "C" "T" "G" "G" "G" "T" "C"
+##  [3619] "C" "A" "G" "A" "A" "C" "T" "A" "A" "C" "T" "T" "G" "T" "G" "T" "T" "C"
+##  [3637] "C" "C" "G" "A" "G" "T" "G" "G" "G" "A" "T" "A" "G" "T" "C" "G" "T" "C"
+##  [3655] "G" "G" "G" "G" "T" "A" "T" "G" "A" "T" "G" "G" "A" "A" "G" "A" "A" "G"
+##  [3673] "C" "C" "C" "C" "G" "T" "T" "G" "C" "A" "A" "G" "C" "C" "A" "C" "A" "G"
+##  [3691] "C" "C" "C" "A" "C" "G" "A" "T" "G" "T" "G" "A" "A" "G" "T" "G" "C" "C"
+##  [3709] "T" "C" "G" "G" "T" "T" "A" "G" "A" "A" "C" "T" "G" "C" "A" "G" "T" "T"
+##  [3727] "T" "A" "A" "T" "A" "C" "C" "G" "G" "T" "A" "C" "C" "G" "T" "C" "T" "C"
+##  [3745] "A" "G" "C" "A" "T" "T" "A" "C" "C" "G" "C" "T" "T" "A" "C" "A" "A" "T"
+##  [3763] "C" "G" "T" "C" "T" "G" "G" "A" "A" "A" "A" "A" "T" "G" "A" "G" "C" "T"
+##  [3781] "C" "G" "G" "T" "T" "A" "A" "A" "C" "T" "G" "G" "G" "T" "C" "T" "C" "C"
+##  [3799] "G" "A" "T" "T" "A" "T" "A" "G" "T" "T" "C" "G" "C" "T" "G" "G" "T" "G"
+##  [3817] "T" "C" "C" "T" "T" "G" "A" "T" "G" "A" "C" "A" "G" "C" "G" "C" "C" "G"
+##  [3835] "C" "G" "G" "G" "A" "C" "A" "G" "C" "G" "T" "C" "T" "A" "A" "T" "T" "A"
+##  [3853] "T" "T" "T" "T" "C" "A" "A" "T" "T" "T" "T" "T" "A" "A" "A" "C" "C" "C"
+##  [3871] "T" "A" "G" "A" "G" "A" "G" "A" "T" "A" "C" "T" "C" "G" "G" "A" "T" "A"
+##  [3889] "A" "T" "A" "G" "C" "G" "G" "T" "T" "C" "T" "G" "T" "G" "T" "T" "C" "G"
+##  [3907] "T" "T" "C" "C" "A" "T" "T" "C" "T" "A" "G" "G" "A" "C" "C" "G" "A" "C"
+##  [3925] "G" "A" "G" "T" "A" "G" "G" "G" "C" "A" "G" "A" "G" "G" "T" "A" "T" "C"
+##  [3943] "G" "G" "A" "C" "A" "C" "G" "A" "G" "G" "C" "G" "T" "T" "C" "G" "G" "G"
+##  [3961] "G" "T" "G" "G" "C" "T" "A" "C" "T" "C" "C" "A" "T" "T" "C" "A" "T" "C"
+##  [3979] "G" "C" "T" "T" "C" "T" "A" "T" "C" "A" "T" "A" "A" "T" "C" "T" "G" "C"
+##  [3997] "T" "G" "G" "T" "G" "T" "A" "T" "A" "G" "G" "G" "T" "G" "C" "G" "T" "C"
+##  [4015] "G" "G" "T" "A" "G" "T" "A" "T" "C" "T" "T" "G" "G" "A" "A" "G" "G" "C"
+##  [4033] "A" "T" "G" "T" "A" "G" "C" "A" "G" "A" "A" "G" "T" "G" "C" "G" "T" "C"
+##  [4051] "C" "T" "C" "C" "T" "C" "G" "C" "A" "T" "G" "G" "C" "A" "A" "A" "C" "C"
+##  [4069] "T" "A" "G" "T" "C" "C" "G" "G" "G" "A" "A" "T" "T" "G" "T" "A" "T" "C"
+##  [4087] "A" "A" "T" "T" "C" "C" "C" "G" "C" "G" "T" "G" "G" "T" "G" "A" "C" "A"
+##  [4105] "G" "G" "C" "A" "C" "A" "T" "T" "A" "A" "C" "A" "T" "A" "A" "C" "T" "A"
+##  [4123] "A" "T" "C" "C" "A" "C" "T" "T" "T" "T" "A" "A" "T" "A" "C" "A" "G" "G"
+##  [4141] "C" "C" "T" "T" "C" "T" "C" "T" "A" "C" "T" "T" "T" "A" "C" "A" "G" "C"
+##  [4159] "C" "G" "T" "C" "T" "G" "T" "T" "G" "G" "C" "G" "G" "G" "T" "G" "C" "A"
+##  [4177] "T" "C" "G" "C" "G" "G" "A" "T" "A" "C" "C" "A" "T" "C" "G" "C" "T" "G"
+##  [4195] "T" "A" "C" "C" "A" "A" "G" "C" "A" "C" "T" "G" "T" "A" "T" "C" "C" "C"
+##  [4213] "G" "C" "A" "A" "A" "G" "G" "T" "G" "T" "T" "C" "C" "A" "C" "C" "G" "T"
+##  [4231] "A" "T" "C" "G" "C" "C" "C" "T" "C" "C" "T" "G" "G" "A" "C" "A" "A" "G"
+##  [4249] "G" "G" "C" "T" "G" "G" "C" "A" "C" "G" "A" "T" "A" "C" "A" "A" "T" "T"
+##  [4267] "C" "A" "A" "G" "A" "A" "C" "G" "T" "T" "T" "A" "A" "C" "T" "A" "T" "G"
+##  [4285] "C" "C" "G" "T" "G" "C" "T" "G" "G" "G" "T" "A" "C" "A" "C" "C" "T" "G"
+##  [4303] "G" "T" "G" "G" "T" "A" "C" "A" "G" "A" "A" "C" "T" "G" "G" "G" "G" "C"
+##  [4321] "G" "A" "C" "A" "A" "T" "C" "A" "A" "A" "T" "T" "G" "A" "T" "A" "T" "C"
+##  [4339] "C" "T" "G" "G" "A" "G" "A" "G" "T" "T" "T" "G" "A" "A" "T" "C" "C" "C"
+##  [4357] "C" "C" "G" "T" "A" "A" "A" "C" "T" "A" "C" "C" "G" "G" "C" "T" "A" "A"
+##  [4375] "G" "C" "G" "T" "A" "G" "G" "A" "C" "A" "A" "A" "T" "C" "G" "G" "G" "T"
+##  [4393] "T" "A" "G" "C" "G" "T" "G" "C" "A" "G" "A" "A" "G" "T" "G" "T" "G" "A"
+##  [4411] "T" "C" "G" "G" "C" "C" "A" "C" "G" "C" "T" "C" "A" "T" "G" "T" "G" "T"
+##  [4429] "G" "G" "A" "A" "T" "A" "C" "A" "G" "A" "A" "A" "C" "G" "A" "A" "C" "G"
+##  [4447] "T" "A" "T" "A" "G" "T" "A" "A" "T" "G" "G" "A" "G" "G" "T" "A" "T" "T"
+##  [4465] "T" "A" "A" "T" "T" "C" "G" "G" "T" "G" "T" "T" "T" "G" "C" "A" "T" "C"
+##  [4483] "T" "T" "C" "C" "C" "C" "C" "T" "T" "A" "T" "A" "C" "C" "C" "T" "G" "G"
+##  [4501] "A" "T" "C" "T" "T" "G" "T" "G" "T" "A" "C" "C" "T" "T" "C" "C" "G" "A"
+##  [4519] "G" "G" "G" "G" "A" "C" "A" "C" "T" "C" "C" "T" "C" "G" "T" "C" "C" "C"
+##  [4537] "T" "C" "C" "T" "A" "A" "A" "G" "G" "C" "T" "G" "T" "T" "G" "A" "G" "C"
+##  [4555] "G" "T" "A" "C" "G" "T" "C" "C" "C" "C" "G" "C" "T" "A" "T" "G" "G" "G"
+##  [4573] "A" "C" "A" "C" "C" "A" "A" "A" "T" "T" "C" "T" "A" "T" "C" "C" "G" "T"
+##  [4591] "C" "A" "A" "A" "G" "T" "T" "A" "A" "G" "T" "G" "A" "C" "C" "C" "T" "A"
+##  [4609] "T" "T" "T" "T" "T" "A" "A" "G" "A" "C" "A" "C" "C" "G" "A" "T" "A" "G"
+##  [4627] "A" "A" "T" "G" "G" "T" "C" "C" "C" "G" "G" "C" "T" "A" "T" "T" "G" "C"
+##  [4645] "A" "A" "A" "T" "G" "G" "A" "G" "A" "T" "A" "A" "G" "G" "T" "A" "G" "G"
+##  [4663] "T" "A" "C" "G" "A" "C" "G" "C" "C" "T" "G" "A" "C" "C" "T" "C" "G" "C"
+##  [4681] "T" "G" "G" "T" "T" "A" "C" "G" "C" "C" "C" "T" "A" "C" "C" "T" "T" "G"
+##  [4699] "A" "A" "T" "T" "G" "C" "A" "C" "A" "A" "T" "G" "T" "T" "C" "A" "G" "C"
+##  [4717] "G" "C" "A" "G" "G" "A" "G" "T" "C" "G" "T" "A" "C" "T" "T" "C" "A" "C"
+##  [4735] "C" "A" "T" "G" "C" "T" "T" "T" "C" "C" "T" "A" "A" "G" "A" "C" "T" "G"
+##  [4753] "T" "G" "C" "T" "T" "G" "C" "A" "T" "C" "T" "A" "G" "A" "C" "C" "T" "G"
+##  [4771] "C" "T" "C" "C" "T" "G" "G" "A" "T" "A" "G" "G" "A" "T" "C" "C" "T" "C"
+##  [4789] "G" "A" "C" "A" "A" "A" "A" "T" "G" "G" "T" "C" "T" "G" "C" "G" "G" "A"
+##  [4807] "A" "C" "A" "T" "T" "G" "G" "C" "C" "C" "C" "C" "C" "G" "A" "T" "A" "G"
+##  [4825] "C" "T" "A" "G" "A" "G" "A" "G" "C" "A" "G" "G" "A" "A" "G" "A" "T" "A"
+##  [4843] "A" "T" "A" "A" "C" "G" "A" "C" "A" "A" "C" "G" "T" "A" "G" "G" "T" "T"
+##  [4861] "A" "A" "C" "C" "G" "A" "A" "A" "A" "C" "C" "G" "A" "G" "G" "T" "G" "A"
+##  [4879] "A" "T" "A" "G" "G" "C" "G" "C" "T" "A" "C" "T" "T" "A" "C" "G" "C" "G"
+##  [4897] "G" "G" "C" "C" "C" "A" "G" "C" "C" "G" "G" "G" "C" "T" "G" "A" "A" "T"
+##  [4915] "A" "C" "C" "T" "A" "G" "C" "A" "C" "C" "A" "G" "A" "G" "T" "A" "G" "G"
+##  [4933] "T" "T" "G" "T" "C" "T" "G" "T" "G" "C" "T" "G" "C" "G" "A" "G" "C" "A"
+##  [4951] "A" "A" "A" "A" "G" "A" "A" "T" "G" "G" "C" "C" "G" "G" "T" "T" "C" "T"
+##  [4969] "T" "T" "C" "A" "C" "A" "G" "G" "G" "G" "A" "T" "C" "C" "T" "T" "G" "T"
+##  [4987] "T" "T" "C" "A" "C" "T" "T" "C" "A" "G" "T" "G" "G" "C" "A" "A" "G" "G"
+##  [5005] "A" "A" "C" "C" "C" "G" "T" "G" "T" "C" "C" "A" "C" "A" "A" "T" "T" "T"
+##  [5023] "G" "C" "G" "A" "C" "A" "T" "G" "T" "T" "C" "A" "C" "A" "T" "T" "A" "T"
+##  [5041] "T" "G" "T" "T" "G" "G" "G" "T" "T" "T" "T" "G" "G" "C" "T" "A" "C" "A"
+##  [5059] "C" "A" "G" "A" "G" "C" "C" "T" "C" "A" "C" "A" "G" "G" "T" "A" "T" "G"
+##  [5077] "T" "A" "G" "C" "C" "T" "G" "T" "T" "G" "A" "G" "T" "G" "T" "A" "T" "A"
+##  [5095] "G" "T" "A" "A" "A" "G" "T" "C" "G" "G" "C" "C" "T" "G" "G" "G" "A" "C"
+##  [5113] "G" "C" "G" "G" "G" "G" "G" "A" "G" "C" "C" "C" "C" "G" "G" "C" "C" "T"
+##  [5131] "T" "T" "G" "T" "C" "C" "A" "T" "C" "T" "G" "A" "G" "A" "A" "A" "A" "T"
+##  [5149] "A" "C" "T" "G" "G" "C" "C" "G" "G" "T" "G" "C" "C" "C" "G" "A" "T" "G"
+##  [5167] "A" "G" "G" "C" "G" "A" "T" "C" "C" "C" "T" "C" "C" "T" "G" "G" "T" "G"
+##  [5185] "A" "C" "C" "G" "T" "G" "C" "C" "G" "C" "C" "C" "G" "C" "G" "C" "A" "T"
+##  [5203] "A" "T" "G" "G" "T" "G" "A" "C" "C" "A" "G" "T" "C" "C" "T" "C" "A" "A"
+##  [5221] "A" "A" "T" "T" "T" "G" "C" "G" "C" "A" "A" "A" "T" "A" "T" "G" "T" "T"
+##  [5239] "C" "T" "T" "A" "G" "G" "T" "A" "A" "C" "T" "C" "G" "T" "C" "T" "T" "A"
+##  [5257] "G" "T" "A" "C" "A" "A" "G" "T" "T" "G" "T" "A" "A" "A" "G" "A" "T" "A"
+##  [5275] "A" "T" "T" "G" "C" "A" "C" "A" "A" "G" "G" "T" "C" "G" "G" "C" "T" "C"
+##  [5293] "G" "G" "C" "A" "C" "G" "T" "T" "T" "G" "G" "T" "C" "C" "G" "A" "A" "T"
+##  [5311] "A" "G" "C" "C" "T" "C" "C" "A" "A" "A" "C" "A" "G" "C" "A" "C" "A" "T"
+##  [5329] "A" "G" "G" "T" "C" "T" "T" "C" "T" "C" "T" "T" "G" "A" "G" "G" "G" "T"
+##  [5347] "A" "T" "T" "T" "G" "T" "T" "C" "A" "T" "C" "T" "A" "G" "G" "T" "G" "G"
+##  [5365] "T" "G" "T" "A" "T" "A" "T" "C" "A" "G" "G" "T" "A" "T" "G" "C" "T" "C"
+##  [5383] "C" "A" "T" "T" "G" "C" "C" "C" "C" "A" "T" "T" "A" "G" "G" "G" "C" "G"
+##  [5401] "T" "A" "T" "G" "T" "T" "T" "A" "C" "G" "A" "T" "G" "C" "G" "C" "G" "C"
+##  [5419] "G" "C" "T" "T" "C" "A" "T" "A" "A" "T" "G" "C" "C" "G" "T" "A" "T" "G"
+##  [5437] "T" "A" "C" "G" "A" "C" "T" "T" "A" "C" "A" "G" "C" "C" "T" "T" "C" "G"
+##  [5455] "C" "T" "C" "G" "G" "A" "G" "C" "C" "T" "G" "C" "A" "T" "A" "G" "A" "T"
+##  [5473] "A" "G" "T" "T" "A" "C" "T" "A" "G" "A" "A" "C" "C" "A" "G" "T" "A" "G"
+##  [5491] "C" "T" "G" "G" "T" "A" "C" "G" "A" "G" "G" "A" "C" "A" "A" "A" "A" "G"
+##  [5509] "G" "G" "C" "G" "T" "A" "C" "T" "C" "T" "T" "A" "T" "G" "T" "A" "C" "A"
+##  [5527] "A" "T" "T" "G" "C" "G" "A" "T" "G" "C" "G" "C" "G" "C" "A" "C" "G" "G"
+##  [5545] "A" "T" "A" "A" "C" "C" "C" "G" "G" "T" "A" "C" "G" "G" "G" "A" "C" "G"
+##  [5563] "A" "T" "A" "T" "G" "G" "C" "T" "G" "T" "G" "A" "T" "G" "T" "C" "T" "T"
+##  [5581] "A" "G" "G" "T" "T" "G" "C" "A" "A" "G" "G" "G" "C" "A" "T" "A" "C" "A"
+##  [5599] "A" "G" "T" "G" "A" "C" "G" "G" "A" "A" "A" "T" "G" "C" "G" "T" "A" "A"
+##  [5617] "A" "T" "A" "A" "T" "C" "T" "G" "A" "A" "T" "G" "G" "A" "T" "G" "G" "C"
+##  [5635] "A" "G" "T" "G" "T" "T" "C" "A" "A" "G" "G" "A" "C" "T" "T" "C" "G" "A"
+##  [5653] "A" "T" "G" "A" "T" "T" "C" "T" "G" "A" "A" "A" "G" "A" "T" "T" "C" "T"
+##  [5671] "G" "T" "T" "G" "T" "A" "T" "C" "C" "A" "C" "C" "T" "A" "C" "C" "G" "A"
+##  [5689] "T" "T" "G" "G" "G" "G" "G" "A" "G" "T" "T" "C" "A" "C" "T" "T" "T" "T"
+##  [5707] "T" "T" "T" "A" "T" "A" "T" "T" "G" "G" "G" "G" "T" "A" "A" "G" "T" "G"
+##  [5725] "T" "C" "G" "G" "T" "C" "G" "T" "A" "A" "T" "T" "C" "G" "T" "G" "C" "T"
+##  [5743] "G" "C" "G" "C" "A" "C" "G" "G" "A" "T" "C" "G" "C" "A" "G" "G" "G" "A"
+##  [5761] "C" "G" "G" "T" "A" "G" "C" "A" "C" "G" "T" "T" "T" "T" "T" "C" "C" "G"
+##  [5779] "C" "T" "A" "C" "C" "G" "A" "T" "A" "G" "A" "T" "T" "T" "A" "T" "T" "A"
+##  [5797] "A" "T" "C" "G" "G" "G" "A" "A" "G" "G" "G" "C" "T" "A" "G" "G" "A" "C"
+##  [5815] "G" "C" "G" "A" "T" "G" "C" "A" "G" "G" "G" "T" "A" "G" "G" "A" "T" "T"
+##  [5833] "C" "A" "T" "G" "C" "T" "G" "T" "A" "A" "T" "C" "A" "G" "A" "C" "A" "C"
+##  [5851] "C" "A" "A" "C" "G" "G" "T" "C" "T" "C" "T" "A" "G" "T" "G" "G" "A" "G"
+##  [5869] "G" "C" "T" "A" "A" "G" "G" "C" "C" "G" "C" "T" "G" "C" "T" "A" "C" "T"
+##  [5887] "C" "A" "C" "A" "C" "A" "T" "C" "T" "G" "G" "A" "G" "A" "G" "C" "A" "G"
+##  [5905] "C" "T" "T" "C" "A" "G" "C" "A" "C" "A" "T" "G" "C" "T" "C" "A" "T" "C"
+##  [5923] "C" "G" "T" "C" "T" "G" "T" "G" "G" "T" "G" "T" "T" "A" "A" "G" "G" "G"
+##  [5941] "C" "G" "C" "A" "C" "G" "G" "A" "C" "C" "C" "T" "C" "G" "G" "G" "G" "A"
+##  [5959] "C" "A" "T" "T" "T" "G" "C" "C" "A" "A" "G" "G" "A" "C" "G" "C" "C" "C"
+##  [5977] "G" "C" "T" "C" "C" "A" "C" "T" "T" "A" "G" "G" "T" "C" "G" "C" "A" "T"
+##  [5995] "A" "C" "C" "T" "C" "A" "C" "G" "A" "T" "C" "T" "A" "T" "C" "T" "G" "G"
+##  [6013] "C" "G" "T" "G" "A" "A" "C" "G" "G" "C" "T" "A" "G" "C" "T" "T" "T" "C"
+##  [6031] "A" "T" "T" "T" "T" "T" "C" "T" "T" "G" "C" "T" "T" "A" "G" "C" "A" "A"
+##  [6049] "G" "A" "A" "T" "A" "G" "A" "C" "A" "G" "C" "C" "G" "G" "A" "T" "C" "G"
+##  [6067] "G" "T" "C" "C" "C" "A" "T" "A" "T" "G" "G" "G" "T" "A" "A" "C" "A" "G"
+##  [6085] "G" "T" "G" "G" "G" "T" "G" "A" "C" "A" "G" "G" "T" "T" "T" "A" "T" "C"
+##  [6103] "A" "C" "A" "A" "C" "C" "A" "C" "A" "A" "T" "A" "C" "T" "A" "T" "C" "G"
+##  [6121] "T" "G" "G" "A" "C" "G" "T" "C" "G" "A" "G" "C" "T" "G" "C" "G" "C" "C"
+##  [6139] "A" "A" "G" "C" "A" "G" "T" "C" "G" "T" "G" "A" "T" "G" "T" "T" "C" "T"
+##  [6157] "G" "G" "A" "T" "C" "C" "G" "T" "C" "T" "G" "T" "A" "T" "C" "T" "T" "A"
+##  [6175] "A" "A" "A" "A" "C" "T" "G" "A" "G" "T" "T" "A" "C" "C" "C" "G" "G" "C"
+##  [6193] "A" "C" "T" "C" "T" "C" "A" "A" "A" "T" "A" "C" "C" "C" "A" "A" "G" "T"
+##  [6211] "A" "A" "T" "A" "A" "A" "A" "T" "A" "T" "A" "G" "T" "C" "G" "A" "A" "C"
+##  [6229] "G" "A" "G" "C" "C" "T" "T" "G" "A" "G" "T" "T" "T" "G" "A" "C" "G" "T"
+##  [6247] "G" "T" "C" "G" "C" "C" "T" "A" "T" "G" "T" "A" "T" "G" "A" "G" "C" "G"
+##  [6265] "T" "C" "G" "C" "T" "G" "C" "A" "T" "A" "C" "C" "G" "A" "G" "A" "G" "G"
+##  [6283] "T" "C" "C" "A" "C" "T" "T" "T" "A" "G" "G" "C" "G" "C" "G" "C" "T" "A"
+##  [6301] "C" "G" "T" "G" "A" "T" "A" "T" "A" "A" "T" "A" "C" "T" "C" "C" "C" "T"
+##  [6319] "T" "G" "C" "G" "T" "G" "A" "A" "A" "A" "C" "C" "C" "T" "G" "T" "A" "C"
+##  [6337] "T" "A" "G" "G" "T" "G" "G" "T" "A" "G" "T" "C" "A" "G" "C" "G" "C" "C"
+##  [6355] "T" "C" "G" "A" "A" "C" "G" "A" "C" "T" "A" "A" "G" "A" "C" "T" "T" "A"
+##  [6373] "T" "A" "T" "T" "A" "T" "T" "C" "A" "G" "G" "C" "C" "C" "A" "G" "A" "A"
+##  [6391] "G" "A" "T" "A" "C" "G" "G" "G" "G" "G" "T" "G" "G" "A" "A" "C" "A" "T"
+##  [6409] "C" "C" "G" "C" "T" "G" "T" "A" "A" "G" "C" "G" "T" "A" "C" "A" "C" "A"
+##  [6427] "T" "G" "C" "T" "T" "C" "T" "A" "A" "C" "A" "A" "G" "A" "G" "C" "G" "A"
+##  [6445] "G" "C" "T" "A" "C" "G" "A" "G" "A" "A" "C" "A" "G" "T" "G" "C" "T" "T"
+##  [6463] "A" "T" "A" "A" "C" "A" "G" "C" "G" "G" "T" "G" "C" "G" "C" "G" "C" "A"
+##  [6481] "G" "A" "C" "A" "A" "C" "T" "T" "T" "C" "G" "T" "A" "T" "T" "A" "T" "T"
+##  [6499] "T" "C" "G" "G" "T" "A" "A" "G" "T" "C" "C" "G" "G" "C" "G" "C" "T" "C"
+##  [6517] "A" "A" "T" "A" "A" "A" "C" "C" "A" "A" "A" "C" "T" "G" "C" "G" "A" "A"
+##  [6535] "G" "C" "A" "T" "A" "T" "C" "G" "T" "A" "T" "A" "C" "A" "C" "C" "C" "G"
+##  [6553] "C" "G" "G" "C" "C" "T" "A" "C" "A" "C" "G" "A" "A" "C" "T" "C" "A" "T"
+##  [6571] "A" "A" "C" "G" "A" "G" "C" "T" "G" "T" "G" "T" "G" "A" "A" "G" "G" "G"
+##  [6589] "G" "T" "A" "A" "T" "G" "G" "C" "G" "T" "T" "G" "T" "C" "G" "A" "C" "C"
+##  [6607] "A" "A" "G" "G" "A" "A" "A" "T" "A" "T" "A" "G" "G" "A" "G" "G" "A" "T"
+##  [6625] "C" "C" "T" "G" "G" "A" "A" "G" "A" "A" "C" "A" "G" "T" "A" "A" "G" "G"
+##  [6643] "T" "A" "A" "C" "A" "G" "T" "T" "C" "T" "C" "T" "T" "T" "T" "C" "T" "G"
+##  [6661] "G" "G" "G" "A" "A" "T" "T" "C" "C" "A" "C" "T" "G" "A" "C" "A" "A" "T"
+##  [6679] "G" "T" "A" "G" "C" "T" "C" "C" "A" "A" "G" "A" "T" "C" "A" "A" "G" "G"
+##  [6697] "C" "C" "C" "A" "T" "T" "C" "G" "A" "A" "G" "A" "G" "C" "T" "A" "C" "T"
+##  [6715] "C" "G" "T" "A" "A" "C" "A" "A" "A" "A" "G" "A" "A" "C" "G" "C" "C" "G"
+##  [6733] "T" "T" "A" "C" "A" "G" "T" "T" "G" "C" "C" "G" "G" "C" "C" "A" "T" "T"
+##  [6751] "G" "C" "G" "C" "T" "T" "G" "A" "T" "A" "T" "G" "A" "A" "T" "A" "C" "T"
+##  [6769] "A" "G" "C" "A" "G" "C" "G" "G" "C" "C" "C" "A" "A" "C" "G" "C" "C" "T"
+##  [6787] "C" "T" "G" "C" "T" "C" "G" "T" "T" "T" "T" "C" "G" "T" "G" "G" "T" "G"
+##  [6805] "C" "G" "T" "C" "G" "T" "C" "G" "T" "C" "C" "G" "C" "A" "C" "A" "T" "C"
+##  [6823] "T" "A" "G" "G" "G" "T" "G" "A" "C" "C" "G" "C" "A" "G" "A" "C" "G" "A"
+##  [6841] "G" "C" "T" "T" "T" "T" "G" "C" "A" "T" "C" "G" "A" "T" "T" "G" "T" "A"
+##  [6859] "C" "T" "T" "C" "T" "A" "A" "C" "A" "G" "G" "A" "C" "C" "T" "A" "C" "G"
+##  [6877] "A" "A" "G" "T" "C" "A" "T" "G" "C" "A" "A" "T" "G" "C" "A" "A" "T" "A"
+##  [6895] "A" "G" "G" "A" "A" "G" "A" "A" "G" "C" "T" "G" "A" "G" "A" "C" "T" "C"
+##  [6913] "G" "T" "A" "T" "G" "A" "G" "C" "C" "T" "A" "G" "A" "T" "G" "A" "T" "G"
+##  [6931] "G" "G" "A" "G" "A" "A" "T" "C" "A" "C" "G" "C" "A" "T" "T" "C" "C" "G"
+##  [6949] "T" "G" "A" "C" "G" "C" "G" "C" "T" "T" "A" "A" "C" "T" "C" "G" "G" "G"
+##  [6967] "A" "C" "G" "G" "C" "A" "T" "C" "A" "G" "G" "G" "G" "C" "A" "C" "C" "T"
+##  [6985] "G" "G" "T" "A" "C" "T" "A" "C" "T" "T" "G" "T" "T" "A" "C" "G" "C" "A"
+##  [7003] "T" "A" "G" "A" "G" "C" "G" "T" "G" "T" "T" "G" "T" "G" "G" "T" "C" "T"
+##  [7021] "T" "C" "C" "C" "G" "A" "C" "A" "C" "A" "G" "C" "G" "C" "C" "G" "A" "A"
+##  [7039] "C" "G" "A" "A" "C" "T" "C" "C" "G" "G" "A" "G" "T" "G" "G" "T" "C" "C"
+##  [7057] "A" "T" "A" "G" "A" "G" "A" "A" "G" "A" "G" "T" "T" "A" "G" "T" "T" "T"
+##  [7075] "A" "C" "G" "A" "G" "A" "A" "C" "T" "C" "T" "A" "T" "T" "T" "G" "A" "T"
+##  [7093] "A" "T" "C" "T" "C" "G" "T" "C" "A" "T" "G" "G" "G" "G" "G" "C" "G" "A"
+##  [7111] "T" "C" "A" "T" "T" "G" "T" "G" "C" "A" "G" "C" "T" "A" "T" "T" "G" "G"
+##  [7129] "T" "T" "A" "C" "T" "A" "G" "C" "A" "A" "G" "G" "C" "G" "A" "G" "G" "C"
+##  [7147] "C" "T" "G" "C" "G" "C" "T" "C" "C" "G" "T" "T" "A" "T" "C" "G" "G" "G"
+##  [7165] "G" "A" "C" "G" "A" "C" "T" "C" "G" "C" "T" "T" "A" "T" "T" "G" "T" "C"
+##  [7183] "T" "T" "A" "A" "A" "A" "G" "A" "T" "G" "A" "A" "A" "G" "A" "G" "A" "T"
+##  [7201] "G" "G" "G" "G" "T" "C" "A" "A" "A" "A" "C" "C" "C" "T" "C" "T" "A" "A"
+##  [7219] "C" "G" "T" "A" "A" "G" "T" "G" "A" "C" "G" "C" "G" "C" "G" "C" "A" "C"
+##  [7237] "A" "G" "C" "C" "C" "C" "T" "T" "T" "G" "G" "A" "G" "G" "C" "T" "C" "T"
+##  [7255] "A" "A" "C" "T" "C" "T" "C" "C" "A" "G" "C" "A" "A" "A" "G" "A" "T" "T"
+##  [7273] "T" "G" "A" "A" "C" "T" "A" "C" "T" "T" "A" "T" "G" "C" "C" "G" "A" "C"
+##  [7291] "A" "T" "C" "C" "C" "G" "T" "C" "A" "A" "C" "A" "G" "G" "A" "T" "C" "T"
+##  [7309] "T" "G" "G" "T" "G" "T" "A" "T" "A" "C" "C" "C" "C" "G" "C" "C" "T" "T"
+##  [7327] "T" "A" "A" "A" "T" "T" "A" "A" "T" "A" "G" "G" "A" "T" "A" "A" "A" "G"
+##  [7345] "G" "A" "A" "C" "A" "A" "A" "C" "T" "G" "A" "G" "G" "C" "T" "A" "G" "A"
+##  [7363] "G" "T" "T" "A" "A" "A" "G" "A" "C" "G" "A" "G" "G" "C" "A" "A" "T" "G"
+##  [7381] "G" "G" "G" "T" "C" "C" "C" "C" "T" "T" "G" "G" "G" "A" "G" "C" "C" "T"
+##  [7399] "A" "C" "C" "T" "C" "C" "T" "G" "C" "C" "T" "C" "C" "T" "A" "T" "C" "A"
+##  [7417] "A" "T" "A" "A" "G" "T" "G" "A" "A" "C" "A" "G" "C" "A" "A" "C" "C" "T"
+##  [7435] "C" "A" "C" "T" "A" "T" "G" "A" "T" "G" "C" "A" "A" "T" "A" "G" "A" "A"
+##  [7453] "G" "G" "T" "A" "C" "T" "G" "C" "A" "A" "T" "T" "C" "A" "A" "A" "C" "C"
+##  [7471] "G" "T" "G" "G" "A" "G" "A" "T" "C" "C" "T" "T" "C" "G" "C" "T" "T" "T"
+##  [7489] "C" "T" "C" "A" "C" "T" "A" "G" "C" "C" "G" "G" "C" "C" "C" "C" "C" "T"
+##  [7507] "A" "G" "T" "G" "G" "C" "G" "A" "T" "T" "G" "C" "A" "G" "G" "T" "T" "A"
+##  [7525] "A" "G" "T" "A" "A" "G" "C" "C" "T" "G" "T" "C" "C" "A" "C" "A" "T" "C"
+##  [7543] "G" "T" "C" "C" "T" "A" "C" "C" "G" "C" "C" "A" "C" "A" "T" "G" "A" "A"
+##  [7561] "G" "A" "T" "C" "A" "G" "G" "G" "G" "C" "C" "G" "A" "A" "G" "G" "G" "C"
+##  [7579] "T" "A" "C" "C" "T" "T" "C" "G" "T" "A" "G" "C" "T" "T" "T" "C" "C" "A"
+##  [7597] "C" "G" "T" "T" "C" "T" "T" "A" "T" "C" "A" "T" "T" "T" "A" "T" "T" "A"
+##  [7615] "A" "C" "G" "A" "A" "A" "C" "C" "G" "G" "A" "C" "A" "C" "C" "C" "A" "G"
+##  [7633] "C" "A" "T" "C" "C" "A" "T" "C" "T" "A" "A" "A" "C" "G" "G" "T" "T" "C"
+##  [7651] "G" "A" "T" "G" "G" "G" "C" "G" "T" "A" "T" "A" "T" "G" "A" "T" "C" "C"
+##  [7669] "C" "A" "C" "A" "A" "A" "G" "C" "G" "C" "C" "G" "G" "C" "A" "C" "A" "A"
+##  [7687] "G" "C" "A" "T" "G" "C" "A" "T" "G" "C" "T" "G" "A" "A" "A" "C" "A" "A"
+##  [7705] "G" "G" "A" "C" "G" "A" "G" "A" "C" "A" "A" "T" "G" "T" "T" "A" "A" "T"
+##  [7723] "T" "G" "T" "G" "G" "T" "G" "G" "G" "C" "A" "T" "G" "A" "A" "T" "T" "A"
+##  [7741] "G" "T" "T" "T" "C" "A" "A" "C" "C" "A" "T" "A" "T" "A" "G" "G" "A" "G"
+##  [7759] "C" "G" "A" "C" "T" "C" "T" "T" "A" "C" "A" "A" "T" "G" "A" "C" "T" "A"
+##  [7777] "C" "T" "C" "T" "C" "G" "T" "T" "G" "A" "T" "C" "A" "T" "C" "A" "G" "G"
+##  [7795] "A" "C" "T" "G" "C" "T" "T" "G" "C" "A" "G" "C" "T" "C" "A" "A" "A" "A"
+##  [7813] "G" "T" "G" "T" "A" "A" "A" "A" "A" "A" "C" "G" "A" "G" "T" "A" "C" "C"
+##  [7831] "G" "G" "C" "A" "T" "G" "G" "G" "G" "G" "A" "G" "T" "C" "T" "C" "C" "C"
+##  [7849] "C" "T" "C" "T" "C" "C" "C" "C" "A" "C" "G" "C" "G" "C" "G" "A" "G" "G"
+##  [7867] "G" "A" "A" "T" "T" "A" "A" "T" "C" "G" "G" "T" "A" "G" "C" "C" "C" "G"
+##  [7885] "C" "T" "A" "C" "C" "C" "G" "A" "G" "C" "C" "C" "T" "T" "A" "C" "T" "T"
+##  [7903] "T" "T" "A" "T" "G" "T" "C" "C" "C" "A" "A" "C" "G" "A" "T" "C" "C" "C"
+##  [7921] "T" "T" "C" "T" "G" "C" "T" "C" "C" "C" "T" "G" "C" "C" "C" "C" "C" "A"
+##  [7939] "C" "G" "A" "A" "C" "A" "G" "A" "C" "A" "C" "A" "C" "G" "A" "A" "C" "A"
+##  [7957] "A" "A" "A" "C" "A" "G" "G" "G" "T" "T" "C" "G" "G" "T" "C" "T" "C" "A"
+##  [7975] "A" "C" "G" "T" "G" "G" "A" "C" "T" "C" "T" "T" "C" "C" "T" "C" "G" "T"
+##  [7993] "A" "C" "A" "G" "C" "A" "A" "G" "G" "C" "G" "C" "A" "T" "T" "A" "A" "T"
+##  [8011] "G" "A" "C" "A" "A" "T" "C" "C" "T" "G" "C" "T" "A" "T" "T" "A" "T" "A"
+##  [8029] "G" "A" "A" "C" "C" "G" "G" "T" "C" "C" "C" "A" "C" "A" "T" "G" "C" "T"
+##  [8047] "T" "A" "A" "C" "A" "G" "G" "G" "A" "C" "G" "G" "G" "G" "A" "G" "A" "A"
+##  [8065] "G" "T" "T" "G" "T" "C" "A" "G" "C" "T" "G" "T" "G" "C" "C" "A" "A" "T"
+##  [8083] "T" "A" "T" "C" "G" "A" "T" "A" "C" "G" "T" "A" "A" "C" "C" "A" "G" "C"
+##  [8101] "C" "G" "C" "T" "A" "G" "G" "G" "T" "C" "C" "A" "C" "G" "T" "C" "G" "A"
+##  [8119] "G" "C" "A" "A" "T" "T" "G" "G" "G" "A" "A" "G" "C" "C" "A" "G" "A" "G"
+##  [8137] "T" "C" "G" "G" "G" "T" "G" "C" "C" "T" "C" "A" "C" "T" "T" "T" "C" "A"
+##  [8155] "G" "C" "C" "A" "A" "G" "A" "A" "A" "G" "A" "A" "A" "T" "G" "C" "A" "C"
+##  [8173] "G" "C" "C" "A" "C" "A" "A" "T" "G" "T" "G" "T" "A" "C" "G" "A" "C" "T"
+##  [8191] "A" "C" "G" "T" "T" "C" "T" "A" "T" "T" "G" "A" "C" "T" "T" "G" "G" "C"
+##  [8209] "T" "C" "T" "A" "T" "G" "T" "C" "G" "A" "A" "T" "T" "G" "G" "A" "A" "T"
+##  [8227] "C" "G" "T" "A" "T" "C" "A" "T" "A" "A" "A" "G" "T" "G" "G" "T" "C" "T"
+##  [8245] "T" "T" "A" "A" "T" "G" "A" "G" "G" "A" "C" "G" "T" "C" "C" "G" "C" "A"
+##  [8263] "A" "T" "G" "A" "T" "C" "G" "A" "A" "C" "T" "C" "T" "C" "T" "A" "T" "G"
+##  [8281] "C" "G" "T" "C" "G" "G" "T" "C" "A" "C" "A" "T" "G" "T" "G" "T" "A" "T"
+##  [8299] "C" "C" "C" "G" "T" "C" "T" "T" "C" "T" "G" "C" "T" "A" "T" "G" "T" "C"
+##  [8317] "C" "G" "C" "C" "G" "T" "T" "T" "C" "C" "G" "A" "A" "G" "C" "G" "T" "G"
+##  [8335] "A" "A" "T" "C" "A" "C" "T" "G" "G" "T" "A" "T" "T" "A" "C" "G" "A" "C"
+##  [8353] "A" "G" "G" "G" "C" "A" "G" "A" "C" "C" "T" "A" "T" "C" "G" "C" "C" "G"
+##  [8371] "G" "T" "A" "C" "T" "G" "T" "T" "G" "A" "G" "G" "C" "C" "T" "C" "G" "C"
+##  [8389] "C" "A" "A" "G" "C" "T" "A" "C" "A" "G" "G" "T" "A" "C" "C" "G" "C" "T"
+##  [8407] "T" "C" "C" "A" "G" "C" "G" "T" "G" "G" "G" "T" "T" "T" "G" "A" "G" "A"
+##  [8425] "T" "T" "G" "A" "G" "C" "A" "G" "G" "G" "G" "G" "C" "C" "A" "T" "G" "T"
+##  [8443] "A" "A" "T" "T" "G" "T" "C" "A" "G" "C" "T" "T" "T" "T" "A" "T" "C" "A"
+##  [8461] "T" "G" "T" "C" "G" "G" "G" "C" "G" "A" "C" "C" "C" "G" "A" "C" "G" "C"
+##  [8479] "A" "G" "A" "T" "A" "T" "T" "A" "T" "A" "A" "G" "A" "A" "C" "T" "T" "G"
+##  [8497] "A" "G" "G" "C" "T" "G" "A" "T" "A" "A" "C" "T" "C" "G" "T" "C" "T" "A"
+##  [8515] "T" "G" "G" "A" "A" "G" "A" "T" "G" "T" "T" "A" "C" "A" "A" "G" "G" "C"
+##  [8533] "T" "A" "T" "C" "A" "T" "A" "G" "T" "T" "G" "T" "G" "T" "C" "A" "T" "C"
+##  [8551] "G" "A" "C" "T" "T" "G" "G" "G" "C" "A" "C" "G" "T" "T" "G" "T" "T" "T"
+##  [8569] "G" "A" "G" "G" "T" "C" "C" "C" "C" "A" "G" "T" "A" "G" "C" "A" "T" "G"
+##  [8587] "G" "T" "C" "T" "A" "G" "A" "G" "G" "G" "C" "A" "A" "G" "A" "C" "T" "C"
+##  [8605] "T" "C" "T" "T" "G" "A" "G" "A" "C" "A" "T" "G" "A" "C" "G" "A" "C" "T"
+##  [8623] "T" "T" "G" "A" "T" "A" "A" "A" "G" "C" "C" "T" "C" "A" "T" "T" "T" "A"
+##  [8641] "A" "G" "T" "A" "C" "C" "T" "A" "T" "T" "G" "A" "G" "T" "G" "C" "A" "A"
+##  [8659] "C" "T" "G" "G" "T" "T" "A" "C" "C" "C" "G" "A" "C" "A" "C" "C" "C" "A"
+##  [8677] "G" "T" "C" "T" "C" "T" "C" "C" "C" "G" "A" "A" "C" "C" "T" "G" "G" "A"
+##  [8695] "G" "G" "C" "C" "C" "T" "A" "A" "G" "T" "T" "G" "T" "C" "G" "C" "G" "G"
+##  [8713] "T" "T" "T" "C" "G" "C" "A" "G" "A" "G" "T" "C" "A" "A" "T" "G" "T" "G"
+##  [8731] "G" "T" "C" "C" "A" "C" "G" "A" "T" "A" "C" "T" "C" "G" "C" "T" "T" "T"
+##  [8749] "T" "G" "A" "G" "A" "G" "A" "G" "T" "G" "G" "C" "G" "T" "G" "G" "T" "T"
+##  [8767] "G" "C" "G" "A" "T" "T" "C" "T" "T" "C" "C" "T" "G" "T" "T" "C" "G" "C"
+##  [8785] "G" "C" "T" "C" "A" "T" "A" "T" "C" "T" "A" "T" "C" "T" "C" "G" "G" "C"
+##  [8803] "C" "T" "A" "T" "C" "A" "A" "C" "A" "G" "G" "G" "G" "T" "C" "G" "C" "G"
+##  [8821] "G" "C" "T" "C" "A" "C" "G" "C" "G" "C" "A" "C" "C" "G" "G" "A" "G" "T"
+##  [8839] "T" "A" "T" "C" "A" "C" "C" "G" "G" "C" "G" "A" "G" "T" "A" "A" "A" "T"
+##  [8857] "C" "G" "C" "G" "C" "G" "T" "C" "C" "C" "T" "G" "T" "C" "G" "G" "G" "T"
+##  [8875] "T" "G" "T" "C" "T" "G" "C" "A" "C" "T" "G" "A" "C" "G" "A" "A" "A" "C"
+##  [8893] "G" "G" "A" "C" "C" "G" "T" "G" "T" "C" "G" "C" "T" "G" "G" "A" "G" "T"
+##  [8911] "G" "A" "C" "C" "C" "C" "A" "C" "G" "T" "A" "G" "T" "C" "G" "C" "T" "A"
+##  [8929] "C" "G" "A" "A" "A" "A" "A" "C" "A" "G" "A" "A" "A" "A" "G" "C" "T" "C"
+##  [8947] "A" "T" "C" "A" "T" "G" "T" "T" "A" "G" "C" "T" "G" "A" "A" "G" "G" "A"
+##  [8965] "T" "G" "A" "A" "T" "A" "T" "C" "C" "T" "G" "A" "G" "C" "A" "G" "G" "A"
+##  [8983] "G" "G" "G" "A" "G" "C" "C" "C" "A" "C" "A" "C" "C" "C" "C" "G" "A" "G"
+##  [9001] "A" "T" "A" "G" "G" "G" "G" "C" "A" "A" "C" "G" "T" "T" "A" "G" "C" "G"
+##  [9019] "A" "C" "C" "C" "T" "C" "T" "G" "C" "T" "C" "G" "C" "G" "T" "T" "C" "A"
+##  [9037] "A" "C" "A" "A" "G" "G" "C" "G" "T" "T" "G" "C" "A" "C" "C" "A" "A" "C"
+##  [9055] "A" "A" "T" "G" "G" "C" "A" "T" "T" "C" "G" "C" "C" "C" "A" "T" "G" "C"
+##  [9073] "T" "G" "A" "A" "A" "C" "T" "A" "C" "C" "C" "A" "T" "C" "G" "G" "G" "C"
+##  [9091] "T" "A" "C" "A" "A" "C" "T" "G" "T" "C" "A" "A" "C" "G" "A" "C" "A" "T"
+##  [9109] "C" "G" "T" "A" "G" "C" "A" "T" "G" "A" "C" "C" "C" "T" "C" "G" "A" "G"
+##  [9127] "C" "T" "A" "C" "C" "A" "A" "C" "A" "C" "C" "T" "G" "A" "C" "G" "G" "A"
+##  [9145] "C" "T" "C" "A" "C" "C" "C" "A" "C" "A" "T" "C" "T" "T" "G" "G" "G" "G"
+##  [9163] "T" "T" "C" "T" "A" "G" "A" "T" "T" "G" "G" "A" "C" "T" "T" "G" "C" "A"
+##  [9181] "A" "T" "A" "A" "A" "G" "A" "G" "C" "C" "C" "T" "C" "A" "C" "C" "A" "G"
+##  [9199] "T" "T" "T" "T" "A" "T" "T" "C" "T" "C" "T" "C" "A" "A" "A" "C" "A" "G"
+##  [9217] "G" "T" "C" "A" "G" "A" "T" "A" "G" "A" "C" "C" "A" "T" "G" "A" "C" "C"
+##  [9235] "C" "C" "A" "G" "A" "G" "T" "T" "G" "C" "T" "G" "A" "T" "G" "G" "G" "T"
+##  [9253] "A" "A" "A" "T" "G" "G" "T" "T" "T" "A" "C" "T" "A" "A" "A" "A" "A" "T"
+##  [9271] "A" "T" "A" "T" "T" "A" "C" "C" "G" "C" "G" "C" "G" "A" "C" "C" "T" "T"
+##  [9289] "T" "C" "A" "G" "C" "T" "A" "A" "G" "C" "A" "T" "T" "C" "G" "C" "C" "A"
+##  [9307] "C" "A" "T" "G" "T" "C" "G" "A" "G" "G" "A" "A" "A" "C" "A" "T" "C" "A"
+##  [9325] "C" "G" "T" "A" "G" "G" "G" "C" "G" "A" "G" "C" "A" "T" "G" "A" "A" "T"
+##  [9343] "C" "G" "C" "T" "G" "A" "A" "C" "A" "G" "T" "C" "C" "G" "C" "A" "G" "C"
+##  [9361] "C" "G" "G" "G" "G" "G" "C" "G" "T" "C" "G" "G" "G" "A" "G" "T" "C" "G"
+##  [9379] "T" "G" "T" "T" "T" "G" "G" "G" "C" "C" "T" "T" "G" "A" "C" "G" "G" "T"
+##  [9397] "G" "A" "C" "C" "G" "G" "C" "A" "T" "G" "T" "A" "T" "C" "A" "A" "T" "T"
+##  [9415] "G" "C" "T" "C" "A" "A" "C" "A" "C" "T" "G" "C" "C" "T" "A" "T" "A" "A"
+##  [9433] "G" "T" "G" "G" "T" "G" "A" "C" "T" "G" "G" "C" "C" "A" "T" "A" "C" "T"
+##  [9451] "A" "C" "G" "T" "T" "T" "T" "G" "G" "G" "G" "G" "T" "G" "G" "T" "G" "C"
+##  [9469] "T" "G" "A" "A" "A" "C" "T" "C" "G" "T" "A" "C" "T" "T" "G" "C" "T" "C"
+##  [9487] "T" "T" "G" "T" "A" "C" "T" "A" "G" "T" "C" "G" "T" "T" "T" "G" "T" "A"
+##  [9505] "A" "A" "T" "T" "A" "A" "G" "A" "C" "C" "C" "C" "T" "C" "G" "C" "C" "G"
+##  [9523] "G" "C" "G" "C" "G" "A" "C" "C" "C" "T" "C" "C" "A" "A" "T" "T" "C" "G"
+##  [9541] "A" "G" "T" "A" "G" "G" "G" "A" "G" "A" "C" "G" "A" "A" "A" "G" "C" "T"
+##  [9559] "C" "C" "G" "C" "C" "G" "C" "C" "C" "T" "T" "T" "T" "G" "T" "A" "G" "A"
+##  [9577] "C" "T" "A" "C" "G" "G" "T" "G" "A" "A" "T" "T" "T" "A" "A" "C" "A" "A"
+##  [9595] "G" "T" "A" "G" "G" "C" "G" "A" "G" "T" "A" "A" "A" "C" "T" "A" "C" "G"
+##  [9613] "C" "A" "T" "T" "T" "A" "T" "G" "A" "C" "C" "T" "A" "A" "A" "C" "C" "G"
+##  [9631] "T" "G" "G" "A" "T" "G" "A" "G" "A" "C" "A" "G" "T" "G" "A" "C" "C" "G"
+##  [9649] "C" "T" "G" "G" "T" "T" "C" "A" "C" "T" "G" "C" "G" "A" "T" "C" "G" "T"
+##  [9667] "C" "A" "T" "G" "A" "G" "G" "A" "G" "T" "C" "A" "T" "A" "C" "C" "C" "C"
+##  [9685] "T" "T" "T" "C" "A" "G" "A" "A" "C" "C" "G" "C" "T" "G" "G" "G" "G" "G"
+##  [9703] "C" "G" "A" "A" "T" "G" "C" "A" "C" "C" "T" "C" "A" "G" "G" "G" "A" "C"
+##  [9721] "G" "A" "G" "A" "A" "C" "G" "C" "A" "A" "C" "A" "T" "T" "T" "G" "C" "T"
+##  [9739] "T" "T" "C" "T" "A" "C" "C" "T" "C" "C" "A" "C" "A" "T" "G" "C" "T" "C"
+##  [9757] "A" "A" "T" "G" "C" "C" "A" "G" "C" "T" "T" "C" "G" "A" "A" "C" "T" "C"
+##  [9775] "C" "T" "T" "T" "A" "A" "A" "T" "A" "T" "C" "A" "G" "A" "A" "A" "T" "G"
+##  [9793] "C" "A" "G" "A" "C" "T" "A" "A" "G" "A" "T" "C" "G" "A" "A" "G" "A" "T"
+##  [9811] "C" "C" "G" "C" "A" "G" "T" "T" "G" "G" "T" "T" "C" "A" "G" "A" "A" "C"
+##  [9829] "T" "C" "C" "C" "T" "C" "C" "C" "T" "A" "G" "C" "C" "C" "C" "G" "G" "C"
+##  [9847] "T" "G" "A" "G" "C" "T" "A" "A" "G" "C" "T" "A" "G" "G" "A" "T" "C" "G"
+##  [9865] "T" "C" "T" "A" "G" "T" "A" "T" "T" "A" "C" "G" "C" "G" "T" "A" "C" "G"
+##  [9883] "A" "G" "C" "T" "G" "C" "T" "T" "A" "T" "A" "T" "T" "T" "T" "C" "G" "T"
+##  [9901] "C" "C" "G" "C" "A" "T" "G" "G" "C" "A" "G" "G" "A" "G" "C" "A" "C" "A"
+##  [9919] "A" "C" "G" "T" "A" "A" "G" "T" "A" "C" "A" "T" "A" "A" "G" "T" "G" "A"
+##  [9937] "T" "G" "A" "C" "G" "G" "T" "G" "A" "A" "G" "C" "C" "G" "A" "G" "C" "C"
+##  [9955] "A" "T" "C" "C" "T" "T" "C" "T" "T" "A" "A" "A" "C" "G" "C" "T" "A" "G"
+##  [9973] "C" "A" "C" "G" "T" "T" "T" "C" "A" "T" "C" "C" "C" "A" "A" "G" "G" "G"
+##  [9991] "G" "T" "T" "C" "C" "A" "A" "C" "A" "A"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{(}\FunctionTok{length}\NormalTok{(new\_vec)}\SpecialCharTok{{-}}\NormalTok{n}\SpecialCharTok{+}\DecValTok{1}\NormalTok{))\{}
+ 
+\NormalTok{   sub\_str }\OtherTok{=} \FunctionTok{paste}\NormalTok{(new\_vec[i}\SpecialCharTok{:}\NormalTok{(i }\SpecialCharTok{+}\NormalTok{ n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)], }\AttributeTok{collapse=}\StringTok{""}\NormalTok{)}
+  
+  \ControlFlowTok{if}\NormalTok{(}\FunctionTok{is.null}\NormalTok{(myList[[sub\_str]]))\{}
+\NormalTok{    myList[[sub\_str]] }\OtherTok{=} \DecValTok{1}
+\NormalTok{  \}}
+  \ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{    myList[[sub\_str]] }\OtherTok{=}\NormalTok{ myList[[sub\_str]] }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\CommentTok{\# myList}
+
+
+\NormalTok{unvec }\OtherTok{=} \FunctionTok{unlist}\NormalTok{(myList)}
+\FunctionTok{hist}\NormalTok{(unvec)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{rlab_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(unvec))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{rlab_files/figure-latex/unnamed-chunk-3-2.pdf}
+
+\end{document}

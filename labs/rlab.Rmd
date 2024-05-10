@@ -1,6 +1,8 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output:
+  html_notebook: default
+  pdf_document: default
 ---
 
 ## R Markdown
@@ -16,6 +18,12 @@ output: html_notebook
 -   *Preview notebook*
 
     -   `Ctrl + Shift + Q`
+
+## Libraries 
+
+```{r}
+library(matrixStats)
+```
 
 #### X1
 
@@ -113,4 +121,104 @@ for (i in 1:(length(new_vec)-n+1)){
 unvec = unlist(myList)
 hist(unvec)
 plot(density(unvec))
+```
+
+### t-test
+
+```{r}
+v1 = rnorm(10,15,5)
+v2 = rnorm(18,12,5)
+  
+boxplot(list(v1=v1,v2=v2))
+
+t.test(x=v1,y=v2,alternative="greater")
+```
+
+### Χ
+
+Εστω 20 ατομα, 10 αρσενικα & 10 θηλυκα.
+
+Στα θηλυκα, τα 5 ειναι καπνιστες και τα 5 μη-καπνιστες και το ιδιο και στα αρσενικα
+
+-   \~ Factor**+**FactorB
+
+    -   oι δυο μεταβλητες εχουν αθροιστικο effect και οτι η επιδραση στην εκφραση της μιας μεταβλητης ειναι ανεξαρτητη απο την αλλη
+
+-   \~ Factor**\***FactorB
+
+    -   \
+
+-   To pvalue για να ειναι σημαντικο πρεπε να ειναι μικροτερο του **0,05**
+
+```{r}
+
+install.packages("limma")
+
+library(limma)
+
+gender = factor(rep(c('f','m'), each=10))
+smokin = factor(rep(rep(c('ns','s'),each=5),2))
+gender
+smokin
+
+
+exp = rnorm(20,100,10)
+
+# factorA+factorB
+design = model.matrix(~ 0+gender+smokin)
+design
+
+print("-------------------------------------")
+
+fit_a = lmFit(exp,design)
+fit_a
+
+
+contrasts = makeContrasts(genderf-genderm, levels = design)
+contrasts
+
+fit_b = contrasts.fit(fit_a,contrasts)
+fit_b
+
+fit_b = eBayes(fit_b)
+
+tb = topTable(fit_b, n=Inf)
+tb
+
+
+# grouping τισ μεταβλητες
+
+
+
+
+```
+
+Το ιδιο με απο πανω αλλα χρησιμοποιωντας grouping
+
+```{r}
+
+gender = factor(rep(c('f','m'), each=10))
+smokin = factor(rep(rep(c('ns','s'),each=5),2))
+gender 
+smokin 
+
+group = paste(gender,smokin,sep="_")
+group
+
+design = model.matrix(~ 0+group)
+design
+
+
+fita = lmFit(exp,design)
+fita
+
+contrasts = makeContrasts((groupf_ns + groupm_ns)/2 - (groupf_s + groupm_s)/2, levels=design)
+contrasts
+
+fitb = contrasts.fit(fita,contrasts)
+fitb
+
+fitb = eBayes(fitb)
+tb = topTable(fitb, n=Inf)
+tb
 ```
