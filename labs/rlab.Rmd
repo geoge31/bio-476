@@ -5,7 +5,7 @@ output:
   pdf_document: default
 ---
 
-## R Markdown
+# R Notes
 
 -   *Clean environment*
 
@@ -19,13 +19,190 @@ output:
 
     -   `Ctrl + Shift + Q`
 
-## Libraries 
+-   
+
+## Libraries
 
 ```{r}
 library(matrixStats)
+library(limma)
+library(gplots)
+
 ```
 
-#### X1
+## Χ
+
+Εστω 20 ατομα, 10 αρσενικα & 10 θηλυκα.
+
+Στα θηλυκα, τα 5 ειναι καπνιστες και τα 5 μη-καπνιστες και το ιδιο και στα αρσενικα
+
+-   \~ Factor- A **+** Factor-B
+
+    -   oι δυο μεταβλητες εχουν αθροιστικο effect και οτι η επιδραση στην εκφραση της μιας μεταβλητης ειναι ανεξαρτητη απο την αλλη
+
+-   \~ Factor-A **\*** Factor-B
+
+-   To p-value για να ειναι στατιστικο σημαντικο πρεπει να ειναι μικροτερο του **0,05**
+
+```{r}
+
+gender = factor(rep(c('f','m'), each=10))
+smokin = factor(rep(rep(c('ns','s'),each=5),2))
+gender
+smokin
+
+
+exp = rnorm(20,100,10)
+
+# factorA+factorB
+design = model.matrix(~ 0+gender+smokin)
+design
+
+print("-------------------------------------")
+
+fit_a = lmFit(exp,design)
+fit_a
+
+
+contrasts = makeContrasts(genderf-genderm, levels = design)
+contrasts
+
+fit_b = contrasts.fit(fit_a,contrasts)
+fit_b
+
+fit_b = eBayes(fit_b)
+
+tb = topTable(fit_b, n=Inf)
+tb
+```
+
+-   Το ιδιο με απο πανω αλλα χρησιμοποιωντας grouping
+
+    ```{r}
+    group = paste(gender,smokin,sep="_") 
+    group
+
+    design = model.matrix(~ 0+group) design
+
+    fita = lmFit(exp,design) fita
+
+    contrasts = makeContrasts((groupf_ns + groupm_ns)/2 - (groupf_s + groupm_s)/2, levels=design) contrasts
+
+    fitb = contrasts.fit(fita,contrasts) fitb
+
+    fitb = eBayes(fitb) 
+
+
+    tb = topTable(fitb, n=Inf)
+    tb
+
+    ```
+
+## X
+
+-   δημιουργια πινακα S
+
+```{r}
+
+exp = matrix(rnorm(100*40,100,10),ncol=40)
+exp[51:80,21:40] = rnorm(30*20,130,10)
+exp[81:90,11:20] = rnorm(10*10,120,10)
+exp[81:90,21:30] = rnorm(10*10,130,10)
+exp[81:90,31:40] = rnorm(10*10,150,10)
+exp[91:100,11:20] = rnorm(10*10,120,10)
+exp[91:100,21:30] = rnorm(10*10,130,10)
+exp[91:100,31:40] = rnorm(10*10,80,10)
+
+heatmap.2(exp, Rowv=F, Colv=F, dendrogram="none", trace="none")
+
+gender = factor(rep(c("f","m"), each=20))
+smoking = factor(rep(rep(c("ns","s"), each=10), 2))
+smoking
+```
+
+### **X'**
+
+![](images/clipboard-2689428142.png)
+
+-   θελουμε να ελεγξουμε αν το φυλλο παιζει σημασια
+
+    ```{r}
+
+    design = model.matrix(~ 0+gender)
+    design
+
+    fita = lmFit(exp,design)
+    fita
+
+    contrasts = makeContrasts(genderf - genderm, levels=design)
+    contrasts
+
+    fitb = contrasts.fit(fita,contrasts)
+    fitb
+
+    fitb = eBayes(fitb)
+    tb = topTable(fitb, n=Inf)
+    tb
+
+    ```
+
+## X
+
+-   **factor-A \* factor-B**
+
+```{r}
+
+design = model.matrix(~ 0+gender*smoking)
+design
+
+colnames(design) = c("f","m","s","ms")
+
+colnames
+
+fita = lmFit(exp,design)
+fita
+
+contrasts = makeContrasts(f - m, levels=design)
+contrasts
+
+fitb = contrasts.fit(fita,contrasts)
+fitb
+
+fitb = eBayes(fitb)
+tb = topTable(fitb, n=Inf)
+tb
+
+contrasts = makeContrasts(ms, levels=design)
+contrasts
+
+fitb = contrasts.fit(fita,contrasts)
+fitb
+
+fitb = eBayes(fitb)
+tb = topTable(fitb, n=Inf)
+tb
+```
+
+## X
+
+### **-** 
+
+### **Lists**
+
+```{r}
+
+a = list(x=c(1,3,4),y="a")
+
+
+a$x
+
+a$z = "giorgis"
+a
+a[2]
+a[[2]]
+```
+
+## X
 
 \- δημιουργια ενος βεκτορ με 1500 τιμες μηκους 5, οπου οι πρωτες 1000 θα ειναι συνδυασμος των AGCT και οι υπολοιπες 500 ΑΑΑΑΑ
 
@@ -61,7 +238,7 @@ df2 = data.frame(final_string)
 # myList
 ```
 
-#### X2
+## X
 
 \- ευρεση των νουκλεοτιδιων (πχ ACGTT) στη λιστα και ποσες φορες υπαρχει αν υπαρχει για το καθενα
 
@@ -89,9 +266,9 @@ df3 = data.frame(myList)
 
 ```
 
-#### Χ3
+## Χ
 
-\- δημιουργια vector 100000 στοιχειων και καταμετρηση των νουκλεωτιδιων
+-   δημιουργια vector 100000 στοιχειων και καταμετρηση των νουκλεωτιδιων
 
 ```{r}
 
@@ -121,104 +298,4 @@ for (i in 1:(length(new_vec)-n+1)){
 unvec = unlist(myList)
 hist(unvec)
 plot(density(unvec))
-```
-
-### t-test
-
-```{r}
-v1 = rnorm(10,15,5)
-v2 = rnorm(18,12,5)
-  
-boxplot(list(v1=v1,v2=v2))
-
-t.test(x=v1,y=v2,alternative="greater")
-```
-
-### Χ
-
-Εστω 20 ατομα, 10 αρσενικα & 10 θηλυκα.
-
-Στα θηλυκα, τα 5 ειναι καπνιστες και τα 5 μη-καπνιστες και το ιδιο και στα αρσενικα
-
--   \~ Factor**+**FactorB
-
-    -   oι δυο μεταβλητες εχουν αθροιστικο effect και οτι η επιδραση στην εκφραση της μιας μεταβλητης ειναι ανεξαρτητη απο την αλλη
-
--   \~ Factor**\***FactorB
-
-    -   \
-
--   To pvalue για να ειναι σημαντικο πρεπε να ειναι μικροτερο του **0,05**
-
-```{r}
-
-install.packages("limma")
-
-library(limma)
-
-gender = factor(rep(c('f','m'), each=10))
-smokin = factor(rep(rep(c('ns','s'),each=5),2))
-gender
-smokin
-
-
-exp = rnorm(20,100,10)
-
-# factorA+factorB
-design = model.matrix(~ 0+gender+smokin)
-design
-
-print("-------------------------------------")
-
-fit_a = lmFit(exp,design)
-fit_a
-
-
-contrasts = makeContrasts(genderf-genderm, levels = design)
-contrasts
-
-fit_b = contrasts.fit(fit_a,contrasts)
-fit_b
-
-fit_b = eBayes(fit_b)
-
-tb = topTable(fit_b, n=Inf)
-tb
-
-
-# grouping τισ μεταβλητες
-
-
-
-
-```
-
-Το ιδιο με απο πανω αλλα χρησιμοποιωντας grouping
-
-```{r}
-
-gender = factor(rep(c('f','m'), each=10))
-smokin = factor(rep(rep(c('ns','s'),each=5),2))
-gender 
-smokin 
-
-group = paste(gender,smokin,sep="_")
-group
-
-design = model.matrix(~ 0+group)
-design
-
-
-fita = lmFit(exp,design)
-fita
-
-contrasts = makeContrasts((groupf_ns + groupm_ns)/2 - (groupf_s + groupm_s)/2, levels=design)
-contrasts
-
-fitb = contrasts.fit(fita,contrasts)
-fitb
-
-fitb = eBayes(fitb)
-tb = topTable(fitb, n=Inf)
-tb
 ```
