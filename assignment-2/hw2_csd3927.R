@@ -1,50 +1,24 @@
----
-title: "Assignment-2"
-author: "@gioge31 "
-date:   "Deadline 19-05-2024"
-output:
-  html_notebook: default
-  word_document: default
-  pdf_document: 
-    latex_engine: xelatex
----
+#################################
+#         BIO476 - R            #
+#         Assignment-2          #
+#         @csd3927              #
+#         Giorgos Geramoutsos   #
+#################################
 
-![r](image.jpg){width="438"}
 
-## Γιώργος Γεραμούτσος, csd3927
-
-------------------------------------------------------------------------
-
-### **Libraries**
-
-```{r}
 library(matrixStats)
 library(limma)
 library(gplots)
-```
 
-------------------------------------------------------------------------
+# PART A
 
-### **Μέρος Α - Ανάλυση Μικροστοιχείων**
-
-<br>
-
-Επεξεργασία Δεδομένων
-
-```{r}
 gds_ds = readLines("GDS3709.soft")
 gds_cl = gds_ds[!grepl("^[!^#]", gds_ds)]
 writeLines(gds_cl,"GDS3709.soft")
 
 myDt = read.table("GDS3709.soft", sep="\t", header=T, na.strings="null")
-head(myDt,n=10)
-```
+head(myDt)
 
-<br><br>
-
-### Δημιουργια των factors
-
-```{r}
 
 gender = factor(rep(c('f', 'm'), each = 40))
 gender = gender[2:80]
@@ -53,27 +27,16 @@ smoking = smoking[2:80]
 
 expr = myDt[,3:ncol(myDt)]
 head(expr)
-```
 
-<br><br>
-
-### **Ερώτηση 1**
-
-```{r}
-
+# Q1
 design_1 = model.matrix(~ 0 + gender*smoking)
 colnames(design_1) = c("female", "male", "smoking", "male_smoking")
 
 fit_1 = lmFit(expr, design_1, intercept=T)
 fit_1
+rm 
 
-```
-
-<br>
-
--   **1.1 - επίδραση φύλου**
-
-```{r}
+# 1.1 
 contrasts_11 = makeContrasts(female-male, levels=design_1)
 
 fit_11 = contrasts.fit(fit_1,contrasts_11)
@@ -82,13 +45,9 @@ fit_11
 
 tb_11 = topTable(fit_11, n=Inf)
 head(tb_11, n=10)
-```
 
-<br>
 
--   **1.2 - επίδραση καπνίσματος**
-
-```{r}
+# 1.2 
 contrasts_12 = makeContrasts(smoking, levels=design_1)
 
 fit_12 = contrasts.fit(fit_1, contrasts_12)
@@ -99,26 +58,19 @@ fit_12
 
 tb_12 = topTable(fit_12, n=Inf)
 head(tb_12, n=10)
-```
 
-<br><br>
 
-### **Ερώτηση 2**
 
-```{r}
+# Q2
 design_2 = model.matrix(~ 0 + gender+smoking)
 
 colnames(design_2) = c("female", "male", "smoking")
 
 fit_2 = lmFit(expr, design_2, intercept=T)
 fit_2
-```
 
-<br>
 
--   **2.1**
-
-```{r}
+# 2.1
 contrasts_21 = makeContrasts(female-male, levels=design_2)
 contrasts_21
 
@@ -130,13 +82,8 @@ fit_21
 
 tb_21 = topTable(fit_21, n=Inf)
 head(tb_21, n=10)
-```
 
-<br>
-
--   **2.2**
-
-```{r}
+# 2.2 
 contrasts_22 = makeContrasts("smoking", levels=design_2)
 contrasts_22
 
@@ -148,45 +95,27 @@ fit_22
 
 tb_22 = topTable(fit_22, n=Inf)
 head(tb_22, n=10)
-```
 
-<br><br>
 
-### **Ερώτηση 3**
-
-*Δοκιμή με διαφορετικό τρόπο*
-
-```{r}
+# Q3
+# diferent approach
 library(GEOquery)
-```
 
-Φορτώνουμε το dataset και κρατάμε στο phen τα χαρακτηριστικά των δειγμάτων από το eset
+gds <- getGEO("GDS3709", GSEMatrix=TRUE)
+eset <- GDS2eSet(gds, do.log2=TRUE)
 
-```{r}
-
-gds = getGEO("GDS3709", GSEMatrix=TRUE)
-eset = GDS2eSet(gds, do.log2=TRUE)
 
 phen = pData(eset)
 phen
-```
 
-Δημιουργία των factors και αποθήκευση στις λίστες gender & smoking τα στοιχεία εκείνα του dataset που κάνουνε match τα gender & agent
 
-```{r}
 gender = factor(phen$gender, levels = c("female","male"))
 gender
 smoking = factor(phen$agent, levels = c("cigarette smoke", "control"))
 smoking
-```
 
-<br>
 
--   **3.1**
-
-Κρατάμε στις δύο λίστες τα indexes των καπνιστών και μη-καπνιστών και εφαρμόζουμε το t-test. Από αυτά κρατάμε μόνο όσα p-values είναι \< 0.05 και τυπώνονται ενδεικτικά μερικά.
-
-```{r}
+# 3.1
 smoker_ind = which(phen$agent == "cigarette smoke")
 non_smoker_in = which(phen$agent == "control")
 
@@ -196,18 +125,13 @@ significant_genes_smoking = which(ttest_smoking < 0.05)
 
 
 for (i in head(significant_genes_smoking, 20)) {
-  result = paste("Gene position:", i, "p-value:", ttest_smoking[i])
+  result <- paste("Gene position:", i, "p-value:", ttest_smoking[i])
   cat(result, "\n")
 }
-```
 
-<br>
 
--   **3.2**
 
-Αντίστοιχα η ίδια διαδικασία για τα φύλλα
-
-```{r}
+# 3.2
 female_ind = which(phen$gender == "female")
 male_ind = which(phen$gender == "male")
 
@@ -217,29 +141,17 @@ ttest_gender = apply(expr, 1, function(x) t.test(x[female_ind], x[male_ind])$p.v
 significant_genes_gender = which(ttest_gender < 0.05)
 
 for (i in head(significant_genes_gender, 20)) {
-  result = paste("Gene position:", i, "p-value:", ttest_smoking[i])
+  result <- paste("Gene position:", i, "p-value:", ttest_smoking[i])
   cat(result, "\n")
 }
 
-```
 
-<br><br>
 
-### **Ερώτηση 4**
+# Q4 
 
-```{r}
 
-```
+# PART B
 
-------------------------------------------------------------------------
-
-## **Μέρος Β**
-
-<br><br>
-
-**Επεξεργασία αρχείου**
-
-```{r}
 # Processing the file 
 processFile = function(filepath){
   
@@ -256,7 +168,7 @@ processFile = function(filepath){
     }
     
     isNewSeq = length(grep(">", line, ignore.case=TRUE, perl=TRUE)) > 0
-
+    
     if(isNewSeq){
       motiv = ""
       name = gsub(">([^_]*_[^_ ]*).*", x=line, replacement="\\1", perl=TRUE)
@@ -267,37 +179,33 @@ processFile = function(filepath){
   }
   return(seqs) 
 }
-```
 
-**α) Καταμέτρηση μετρώντας πολλές φορές ένα μοτίβο αν υπάρχει πάνω από 1 φορά σε κάποια περιοχή**
 
--   έφτιαξα ένα demo αρχείο για να ελέγξω τον κώδικα αλλά και για πιο γρήγορα
 
-```{r}
-
+# 1 
 # all patterns list
 patterns_a = list()
 
 # exporting the patterns for question 1
 getPatternsA = function(ptr_string, base_length=6){
-
+  
   start_pos = 1
   end_pos = nchar(ptr_string) - base_length + 1
-
+  
   v = strsplit(ptr_string, split="")[[1]]
-
+  
   for(i in start_pos:end_pos){
-
+    
     motiv = paste(v[i:(i+base_length-1)], collapse="")
-
+    
     if(!is.null(patterns_a[[motiv]])){
       patterns_a[[motiv]] = patterns_a[[motiv]] + 1
-
+      
     } else{
       patterns_a[[motiv]] = 1
     }
   }
-
+  
   return(patterns_a)
 }
 
@@ -322,14 +230,10 @@ cat("Total counts for each pattern:\n\n")
 for(i in names(human_file_a)){
   print(getPatternsA(human_file_a[[i]]))
 }
-```
 
-<br>
 
-**α) Καταμέτρηση μετρώντας μόνο 1 φορά το μοτίβο**
 
-```{r}
-
+# 2
 #unique patterns list
 patterns_b = list()
 
@@ -378,4 +282,21 @@ cat("Total counts for each pattern:\n\n")
 for(i in names(human_file_a)){
   print(getPatternsB(human_file_b[[i]]))
 }
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
