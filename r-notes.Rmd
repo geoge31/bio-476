@@ -408,6 +408,10 @@ writeLines(myDCleaned,"newFile.soft")
 
     -   προσθετει τις τιμες του πινακα κατα γραμμες και οχι κατα στηλες οπως κανει by default η R
 
+-   `dim(matrix)`
+
+    -   επιστρεφει τις διαστασεις του πινακα (rows X cols)
+
 ```{r}
 # δημιουργια πινακα 
 mtrx = matrix(1:100, nrow=10, ncol=10)
@@ -419,8 +423,7 @@ mtrx
 mtrx2 = matrix(rnorm(100,10,10), nrow=10)
 mtrx2
 
-
-
+dim(mtrx2)
 ```
 
 \~ Δημιουργια πινακα με τιμες απο μια κανονικη κατανομη με μεση τιμη 100 και τυπικη αποκλειση 10. Ο πινακας πρεπει να ειναι 20χ10
@@ -469,5 +472,132 @@ newMatrix = matrix(1:100, nrow=20, byrow=T)
 newMatrix
 
 newMatrix + 1
+```
 
+```{r}
+# m1 = matrix(runif(100,0,10), nrow=20)
+# m2 = matrix(rnorm(100,10,10), nrow=20)
+
+m1 = matrix(1:100, nrow=10)
+m2 = matrix(101:200, nrow=10)
+
+m3 = m1 + m2 
+m4 = m1 * m2
+m5 = m1 ^ m2
+cat("matrix 1 :\n\n",m1,"\n\nmatrix 2 :\n\n",m2,"\n\nmatrix 3 (matrix 1 + matrix 2) :\n\n",m3,"\n\n matrix 4 (matrix 1 * matrix 2) : \n\n",m4, "\n\nmatrix 5 (matrix 1 ^ matrix 2) :\n\n", m5)
+# m2
+# m3
+```
+
+## 3.4 Συνενωση πινακων
+
+-   ειτε κατα γραμμες ειτε κατα στηλες
+
+-   `cbind(matrix_1,matrix_2)`
+
+```{r}
+
+tab1 = matrix(1:10, nrow=5, byrow=T)
+tab2 = matrix(1:10, nrow=5, byrow=T)
+
+tb = cbind(tab1,tab2)
+tb
+```
+
+-   `colSums(matrix)`
+
+    -   επιστρεφει το αθροισμα των τιμων της καθε στηλης του πινακα
+
+-   `rowSums(matrix)`
+
+    -   επιστρεφει το αθροισμα των τιμων της καθε γραμμης του πινακα
+
+```{r}
+cat("Sum of each column of matrix tb is: ", colSums(tb), "\n")
+cat("Sum of each of row matrix tb is: ", rowSums(tb), "\n")
+```
+
+-   `colMeans(matrix)`
+
+    -   επιστρεφει τους μεσους ορους της καθε στηλης του πινακα
+
+-   `rowMeans(matrix)`
+
+    -   επιστρεφει τους μεσους ορους της καθε γραμμης του πινακα
+
+```{r}
+cat("Mean of each column of matrix tb is: ", colMeans(tb), "\n")
+cat("Mean of each row of matrix tb is: ", rowMeans(tb), "\n")
+```
+
+-   `colSds(matrix)`
+
+    -   επιστρεφει την τυπικη αποκλιση καθε στηλης του πινακα
+
+-   `rowSds(matrix)`
+
+    -   επιστρεφει την τυπικη αποκλιση καθε γραμμης του πινακα
+
+```{r}
+tab3 = matrix(rnorm(200,10,5), nrow=20)
+tab3
+colSds(tab3)
+rowSds(tab3)
+```
+
+## 3.5 Kανονικοποιηση Πινακα
+
+1.  Βρισκω τον μεσο ορο καθε στηλης
+
+2.  Βρισκω την τυπικη αποκλιση καθε στηλης
+
+3.  Για καθε στοιχειο της στηλης αφαιρω τον μεσο ορο και διαιρω με την τυπικη αποκλιση
+
+    3.1 Για να αφαιρεσω απο καθε στοιχειο τον μεσο ορο χρειαζεται να αναστρεψω τον πινακα
+
+```{r}
+
+mx_a = matrix(rnorm(20,10,3), nrow=4)
+cat("pinakas: \n")
+mx_a
+cat("\n")
+
+# μεσος ορος καθε στηλης
+colmeans_a =  colMeans(mx_a)
+cat("mesoi oroi sthlhs : ", colmeans_a, "\n\n")
+
+# τυπικη αποκλιση καθε στηλης
+colsds_a = colSds(mx_a)
+cat("typikes apokleiseis: ", colsds_a, "\n\n")
+
+# για καθε στοιχειο αφαιρω με τον μ.ο. και διαιρω με την τ.α.
+  # βρισκοντας τον αναστροφο πινακα 
+cat("Anastrofos tou pinaka : \n\n")
+mx_b = t(mx_a)
+mx_b
+cat("\n")
+
+# μεσος ορος καθε γραμμης 
+rowmeans_a = rowMeans(mx_b)
+cat("mesoi oroi grammhs : ", rowmeans_a, "\n\n")
+
+# τυπικες αποκλισεις γραμμης 
+rowsds_a = rowSds(mx_b)
+cat("typikes apokliseis grammhs : ", rowsds_a, "\n\n")
+
+mx_b = mx_b - rowmeans_a
+cat("exontas afairesei tous m.o apo tis grammes\n")
+mx_b 
+cat("\n\n")
+
+
+mx_b = mx_b / rowsds_a
+cat("exontas diairesei me tis typikes apokleiseis\n")
+mx_b
+cat("\n\n")
+
+
+cat("epanafora toy pinaka sthn arxikh tou morfi\n")
+mx_b = t(mx_b)
+mx_b
 ```
