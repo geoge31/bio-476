@@ -598,6 +598,7 @@ cat("\n\n")
 
 
 cat("epanafora toy pinaka sthn arxikh tou morfi\n")
+
 mx_b = t(mx_b)
 mx_b
 ```
