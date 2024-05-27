@@ -644,3 +644,347 @@ for(i in 1:20)
     -   ειτε για να αποδειξω οτι η ομαδα του ατομου εχει σημασια
 
     -   ειτε οτι δεν εχει σημασια
+
+```{r}
+vec_a = rnorm(10,15,5)
+vec_b = rnorm(18,12,5)
+
+boxplot(list(vector1=vec_a, vector2=vec_b))
+
+# H1 --> mean(a) > mean(b)
+t.test(x=vec_a, y=vec_b, alternative="greater")
+```
+
+\##########
+
+1.  διαβαζω τα δεδομενα απο το αρχειο
+2.  παιρνω το log των πρωτων 1000 γονιδιων
+    -   `log(tb_a[1:1000, 3:ncol(tb_a)])`
+
+        -   tb_a[1:1000, 3:ncol(tb_a)
+
+        -   απο τον πινακα tb_a παρε τις πρωτς χιλιες γραμμες που ειναι τα γονιδια και ολα τα δειγματ απου ειναι οι στηλες
+
+        -   log ( tb_a[1:1000, 3:ncol(tb_a) )
+
+        -   λογαριθσμισε το
+
+    -   `tbst = t((t(tb_b) - colMeans(tb_b))/colSds(as.matrix(tb_b)))`
+
+        -   κανουμε standarization τον πινακα
+
+    -   δημιουργουμε δυο vectors smokers & nonsmokers
+
+    -   σε μια for κραταμε ολα τα pvalues των καπνιστων και των μη-καπνιστων
+
+```{r}
+tb_a = read.table("GDS3709.soft", sep="\t", header=T)
+
+tb_b  = log(tb_a[1:1000, 3:ncol(tb_a)])
+tbst = t((t(tb_b) - colMeans(tb_b))/colSds(as.matrix(tb_b)))
+
+smokers = c(1:19, 40:59)
+nonsmokers = c(20:39, 60:79)
+
+# tbst[1, smokers]
+# tbst[1, nonsmokers]
+
+pvalues = c()
+
+for(i in 1:nrow(tbst))
+{
+  p_value = t.test(tbst[i, smokers], tbst[i, nonsmokers], alternative="greater")$p.value
+  
+  pvalues = c(pvalues, p_value)
+}
+
+print(pvalues)
+
+
+# ttest = t.test(tbst[1, smokers], tbst[1, nonsmokers], alternative="greater")
+# ttest$p.value
+```
+
+------------------------------------------------------------------------
+
+# 7. Γραμμικα μοντελα 
+
+\##########
+
+\~ Βεκτορ Α θα εχει 20 τιμες : 10-0, 10-1
+
+\~ Βεκτορ Β θα εχει 20 τιμες : 10 και 10 τιμες απο κανονικη κατανομη με διακυμανση 10 και 15 αντιστοιχα
+
+```{r}
+
+vec_x = c(rep(0,10), rep(1,10))
+vec_x
+
+vec_y = c(rep(rnorm(10,10,2)), rep(rnorm(10,15,2)))
+vec_y
+
+### metatropi vector se factor --> as.factor(vector)
+
+
+vec_x = as.factor(vec_x)
+vec_x
+
+
+mlinear_a = lm(vec_y~0+vec_x)
+summary(mlinear_a)
+
+mlinear_b = lm(vec_y~vec_x)
+summary(mlinear_b)
+```
+
+### Model Matrix
+
+\- Εχουμε 20 ατομα
+
+```{r}
+y = rnorm(20,100,10)
+y
+
+gender = factor(rep(c("f","m"),each=10))
+gender
+
+design = model.matrix(~0+gender)
+
+fit_a = lmFit(y, design)
+fit_a
+
+contrasts = makeContrasts(genderf-genderm, levels=design)
+contrasts
+
+fit_b = contrasts.fit(fit_a, contrasts)
+fit_b
+
+topTable(fit_b)
+
+fit_b = eBayes(fit_b)
+fit_b
+```
+
+```{r}
+smoking_factor = factor(c(rep("s",10), rep("ns",10)))
+gender_factor = factor(rep(rep(c("f","m"), each=5),2))
+
+smoking_factor
+gender_factor
+```
+
+------------------------------------------------------------------------
+
+# 8. Multiple Factors
+
+\##########
+
+Εστω 20 ατομα, 10 αρσενικα & 10 θηλυκα.
+
+Στα θηλυκα, τα 5 ειναι καπνιστες και τα 5 μη-καπνιστες και το ιδιο και στα αρσενικα
+
+-   \~ Factor- A **+** Factor-B
+
+    -   oι δυο μεταβλητες εχουν αθροιστικο effect και οτι η επιδραση στην εκφραση της μιας μεταβλητης ειναι ανεξαρτητη απο την αλλη
+
+-   \~ Factor-A **\*** Factor-B
+
+-   To p-value για να ειναι στατιστικο σημαντικο πρεπει να ειναι μικροτερο του **0,05**
+
+```{r}
+gender = factor(rep(c('f','m'), each=10))
+smokin = factor(rep(rep(c('ns','s'),each=5),2))
+gender
+smokin
+
+
+exp = rnorm(20,100,10)
+
+# factorA+factorB
+design = model.matrix(~ 0+gender+smokin)
+design
+
+print("-------------------------------------")
+
+fit_a = lmFit(exp,design)
+fit_a
+
+
+contrasts = makeContrasts(genderf-genderm, levels = design)
+contrasts
+
+fit_b = contrasts.fit(fit_a,contrasts)
+fit_b
+
+fit_b = eBayes(fit_b)
+
+tb = topTable(fit_b, n=Inf)
+tb
+```
+
+-   Το ιδιο με απο πανω αλλα χρησιμοποιωντας grouping
+
+```{r}
+group = paste(gender,smokin,sep="_") 
+group
+
+design = model.matrix(~ 0+group) design
+
+fita = lmFit(exp,design) fita
+
+contrasts = makeContrasts((groupf_ns + groupm_ns)/2 - (groupf_s + groupm_s)/2, levels=design) contrasts
+
+fitb = contrasts.fit(fita,contrasts) fitb
+
+fitb = eBayes(fitb) 
+
+
+tb = topTable(fitb, n=Inf)
+tb
+
+```
+
+## factorA \* factorB
+
+```{r}
+
+```
+
+\#################
+
+1.  Δημιουργια πινακα
+
+```{r}
+exp = matrix(rnorm(100*40,100,10),ncol=40)
+exp[51:80,21:40] = rnorm(30*20,130,10)
+exp[81:90,11:20] = rnorm(10*10,120,10)
+exp[81:90,21:30] = rnorm(10*10,130,10)
+exp[81:90,31:40] = rnorm(10*10,150,10)
+exp[91:100,11:20] = rnorm(10*10,120,10)
+exp[91:100,21:30] = rnorm(10*10,130,10)
+exp[91:100,31:40] = rnorm(10*10,80,10)
+
+heatmap.2(exp, Rowv=F, Colv=F, dendrogram="none", trace="none")
+
+gender = factor(rep(c("f","m"), each=20))
+smoking = factor(rep(rep(c("ns","s"), each=10), 2))
+smoking
+```
+
+1.1 - Θελουμε να δουμε αν το φυλο εχει επιδραη
+
+```{r}
+design = model.matrix(~0+gender)
+design
+
+fit_a = lmFit(exp, design)
+fit_a
+
+contrasts = makeContrasts(genderf-genderm, levels=design)
+contrasts
+
+fit_b = contrasts.fit(fit_a, contrasts)
+fit_b
+
+fit_b = eBayes(fit_b)
+fit_b
+
+tb = topTable(fit_b, n=Inf)
+tb
+```
+
+1.2 - gender\*smoking
+
+```{r}
+design = model.matrix(~0+gender*smoking)
+design
+colnames(design) = c("genderf", "genderm", "smokings", "genderm_smokings")
+
+fit_a = lmFit(exp, design)
+fit_a
+
+contrasts = makeContrasts(genderf-genderm, levels=design)
+contrasts
+
+fit_b = contrasts.fit(fit_a, contrasts)
+fit_b
+
+fit_b = eBayes(fit_b)
+fit_b
+
+tb = topTable(fit_b, n=Inf)
+tb
+
+# which(tb$adj.P.Val<0.5)
+```
+
+1.3 - υπολογισμος παραγοντα genderm_smokings
+
+```{r}
+design = model.matrix(~0+gender*smoking)
+design
+colnames(design) = c("genderf", "genderm", "smokings", "genderm_smokings")
+
+fit_a = lmFit(exp, design)
+fit_a
+
+contrasts = makeContrasts(genderm_smokings, levels=design)
+contrasts
+
+fit_b = contrasts.fit(fit_a, contrasts)
+fit_b
+
+fit_b = eBayes(fit_b)
+fit_b
+
+tb = topTable(fit_b, n=Inf)
+tb
+```
+
+1.4 - υπολογισμος παραγοντα smokings
+
+```{r}
+design = model.matrix(~0+gender*smoking)
+design
+colnames(design) = c("genderf", "genderm", "smokings", "genderm_smokings")
+
+fit_a = lmFit(exp, design)
+fit_a
+
+contrasts = makeContrasts(smokings, levels=design)
+contrasts
+
+fit_b = contrasts.fit(fit_a, contrasts)
+fit_b
+
+fit_b = eBayes(fit_b)
+fit_b
+
+tb = topTable(fit_b, n=Inf)
+tb
+```
+
+------------------------------------------------------------------------
+
+# 9. Lists
+
+```{r}
+la = list(x=c(1,3,4),y="a")
+
+la$x
+
+la$z = "giorgis"
+la
+la[2]
+la[[2]]
+```
+
+```{r}
+tmp_a = c('1,0,1,0,0,1,0,0,0,1,0,1,0,0,1', 'a,b,c,d,e,f,g,h')
+
+ntem = strsplit(tmp_a,',')
+(ntem)
+
+k = unlist(ntem)
+cat(k)
+```
