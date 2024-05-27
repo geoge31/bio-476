@@ -5,15 +5,7 @@ output: html_notebook
 
 ------------------------------------------------------------------------
 
-### Libraries
-
--   limma
-
--   matrixStats
-
--   gplots
-
--   GEOquery
+# Libraries
 
 ```{r}
 library(limma)
@@ -66,7 +58,7 @@ mn
 
 ------------------------------------------------------------------------
 
-# 1.  Vectors
+# 1. Vectors
 
 ```{r}
 w = 10 
@@ -75,7 +67,7 @@ w2
 
 ```
 
-## 1.1  Vector arithmetic operations
+## 1.1 Vector arithmetic operations
 
 ```{r}
 v = c(1,2,3)
@@ -105,7 +97,7 @@ cat("l = (",l,")\n\n","l2 = (",l2, ")\n")
 
 ------------------------------------------------------------------------
 
-## 1.2  Accessing Vector
+## 1.2 Accessing Vector
 
 ```{r}
 v = runif(100, 10, 50)
@@ -167,7 +159,7 @@ z
 
 ------------------------------------------------------------------------
 
-## 1.3  Vector Functions 
+## 1.3 Vector Functions
 
 -   `mean(vec)`
 
@@ -269,7 +261,7 @@ cat("Indexes of sort :",order(z))
 
 ------------------------------------------------------------------------
 
-## 1.4  Απεικονιση Vectors
+## 1.4 Απεικονιση Vectors
 
 -   **Plots**
 
@@ -388,7 +380,7 @@ plot(height, weight, xlab="Height", ylab="Weight", main="Correlation between hei
 
 ------------------------------------------------------------------------
 
-# 2. Read  & Clean Dataset
+# 2. Read & Clean Dataset
 
 ```{r}
 myDataSet = readLines("file.soft")
@@ -396,6 +388,9 @@ myDCleaned = myDataSet[!grepl("[!^#]",myDataSet)]
 
 # write new file 
 writeLines(myDCleaned,"newFile.soft")
+
+# read in table
+newTb = read.table("newFile.soft",sep = "\t", header=T, na.strings="null")
 ```
 
 ------------------------------------------------------------------------
@@ -598,7 +593,54 @@ cat("\n\n")
 
 
 cat("epanafora toy pinaka sthn arxikh tou morfi\n")
-
 mx_b = t(mx_b)
 mx_b
 ```
+
+------------------------------------------------------------------------
+
+# 4. Γραφηματα
+
+```{r}
+mx_a = matrix(rnorm(500,10,10),nrow=10)
+```
+
+## 4.1 Layout
+
+```{r}
+####
+layout(matrix(1:2, nrow=2)) # pollapla grafhmata
+
+boxplot(mx_a)
+plot(density(mx_a))
+```
+
+## 4.2  Heat-map
+
+```{r}
+# an exw diavasei dedomena me read.table sti thesi tou mx_a tha einai as.matrix(onoma)
+heatmap.2(mx_a, trace="none", Colv=F, Rowv=F, dendrogram="none")
+```
+
+------------------------------------------------------------------------
+
+# 5. For loops
+
+```{r}
+x = 5
+for(i in 1:20)
+{
+  x = x+3 
+  print(x)
+}
+```
+
+------------------------------------------------------------------------
+
+# 6. T-test
+
+-   Θελω να εξηγησω την εκφραση με βαση την ομαδα του ατομου
+
+    -   ειτε για να αποδειξω οτι η ομαδα του ατομου εχει σημασια
+
+    -   ειτε οτι δεν εχει σημασια
