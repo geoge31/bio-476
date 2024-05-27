@@ -988,3 +988,94 @@ ntem = strsplit(tmp_a,',')
 k = unlist(ntem)
 cat(k)
 ```
+
+\#################
+
+\- δημιουργια ενος βεκτορ με 1500 τιμες μηκους 5, οπου οι πρωτες 1000 θα ειναι συνδυασμος των AGCT και οι υπολοιπες 500 ΑΑΑΑΑ
+
+-   `replicate(vec_length,paste(sample(myCharacters,nucleos,replace = TRUE), collapse=""))` - επαναλαμβανει vec_length την διαδικασια paste
+
+-   `paste(sample(myCharacters,nucleos,replace=TRUE), collapse="")` - "συνενωνει"" σε ενα string τα samples χωρις κενα
+
+-   `sample(myCharacters,nucleos,replace=TRUE)` - δημιουργια δειγματος των γραμματων AGCT στοιχειων μηκους 5 (nucleos) με επανατοποθετηση
+
+```{r}
+vec_length = 1000 
+add_length = 500
+nucleos = 5
+
+myCharacters = c("A","C","G","T") # create a vector 
+
+
+start_string = replicate(vec_length,paste(sample(myCharacters,nucleos,replace = TRUE), collapse=""))
+
+
+df1 = data.frame(start_string)
+
+
+dummy_vec = rep("AAAAA",add_length) # δημιουρια 500 ΑΑΑΑΑ δειγματων
+
+final_string = c(start_string,dummy_vec) # concat vectors 
+
+
+df2 = data.frame(final_string)
+```
+
+\##################
+
+\- ευρεση των νουκλεοτιδιων (πχ ACGTT) στη λιστα και ποσες φορες υπαρχει αν υπαρχει για το καθενα
+
+-   `myList = list()` δημιουργια κενης λιστας
+
+-   `if(is.null(myList[[elem]]))` - εαν το στοιχειο δεν υπάρχει στη λιστα κανε την τιμη στη θεση 1
+
+-   αλλιως αν υπαρχει αυξησε τη κατα 1
+
+```{r}
+myList = list() 
+myList[["a"]]
+
+for (elem in final_string){ 
+  if(is.null(myList[[elem]])){ 
+    myList[[elem]]=1
+  } 
+  else{
+      myList[[elem]] = myList[[elem]] + 1 
+  } 
+}
+
+df3 = data.frame(myList)
+```
+
+\###############
+
+\- δημιουργια vector 100000 στοιχειων και καταμετρηση των νουκλεωτιδιων
+
+```{r}
+myCharacters = c("A","C","G","T")
+# nsize = 10000
+n = 5
+
+
+new_vec = sample(myCharacters, 10000, replace = TRUE)
+new_vec
+
+for (i in 1:(length(new_vec)-n+1)){
+ 
+   sub_str = paste(new_vec[i:(i + n - 1)], collapse="")
+  
+  if(is.null(myList[[sub_str]])){
+    myList[[sub_str]] = 1
+  }
+  else{
+    myList[[sub_str]] = myList[[sub_str]] + 1
+  }
+}
+
+# myList
+
+
+unvec = unlist(myList)
+hist(unvec)
+plot(density(unvec))
+```
